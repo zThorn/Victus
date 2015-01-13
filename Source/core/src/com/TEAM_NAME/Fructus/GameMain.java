@@ -22,8 +22,8 @@ import com.badlogic.gdx.graphics.profiling.GLProfiler;
 public class GameMain extends Game{
 	SpriteBatch batch;
 	Texture img;
-	static int screenWidth = 1920;
-	static int screenHeight = 1080;
+	static int screenWidth = 960;
+	static int screenHeight = 540;
 	OrthographicCamera camera;
 	Renderer r;
 	ShapeRenderer shape;
@@ -38,7 +38,7 @@ public class GameMain extends Game{
 		r = new Renderer();
 		c = new Controls();
 		log = new FPSLogger();
-		Gdx.gl.glClearColor(0f, 0f, 0f, 1);
+		Gdx.gl.glClearColor(.25f, .25f, .25f, 1);
 		Gdx.gl.glClear(Gdx.gl.GL_COLOR_BUFFER_BIT);
 		font = new BitmapFont();
 		GLProfiler.enable();
