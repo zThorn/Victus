@@ -8,8 +8,8 @@ import com.TEAM_NAME.Fructus.GameMain;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		config.height = 600;
-		config.width = 600;
+		config.height = 540;
+		config.width = 960;
 		new LwjglApplication((ApplicationListener) new GameMain(), config);
 		
 	}

@@ -122,21 +122,30 @@ public class Renderer extends ApplicationAdapter {
 				      
 	      switch(MapChunk.map[mapX][mapY]){
 	      case 1:
-	    	  color = Color.RED;
-	      	break;
-	      case 2: color = Color.GREEN; break;
-	      case 3: color = Color.BLUE; break;
-	      case 4: color = Color.WHITE; break;
-	      default: color = Color.YELLOW; break;
+	    	 color = Color.RED;
+	    	 break;
+	      case 2: 
+	    	  color = Color.OLIVE; 
+	    	  break;
+	      case 3: 
+	    	  color = Color.NAVY; 
+	    	  break;
+	      case 4: 
+	    	  color = Color.GRAY; 
+	    	  break;
+	      default: 
+	    	  color = Color.YELLOW; 
+	    	  break;
 	      }
 	      //if (side == 1) {color.mul(.5f);}
 
 	      //draw the pixels of the stripe as a vertical line	
 	      RendererUtil.drawLine(shape, color, x, drawStart, drawEnd);
 		}
-		double moveSpeed = Gdx.graphics.getDeltaTime()*5;
-		double rotSpeed = Gdx.graphics.getDeltaTime()*3;
+		double moveSpeed = Gdx.graphics.getDeltaTime()/2;
+		double rotSpeed = Gdx.graphics.getDeltaTime()/2;
 		
+		//Move forwards
 		if(Gdx.input.isKeyPressed(Keys.W)){
 			if(MapChunk.map[(int)(posX+dirX*moveSpeed)][(int)posY] == 0){
 				posX += dirX * moveSpeed;
@@ -144,14 +153,36 @@ public class Renderer extends ApplicationAdapter {
 			if(MapChunk.map[(int)posX][(int)(posY+dirY*moveSpeed)] == 0){
 				posY += dirY * moveSpeed;
 			}
-		}	if(Gdx.input.isKeyPressed(Keys.S)){
-				if(MapChunk.map[(int)(posX-dirX*moveSpeed)][(int)posY] >= 1){
+		}	
+		//Move Backwards
+		if(Gdx.input.isKeyPressed(Keys.S)){
+				if(MapChunk.map[(int)(posX-dirX*moveSpeed)][(int)posY] == 0){
 					posX -= dirX * moveSpeed;
 				}
-				if(MapChunk.map[(int)posX][(int)(posY-dirY*moveSpeed)] >= 1){
+				if(MapChunk.map[(int)posX][(int)(posY-dirY*moveSpeed)] == 0){
 					posY -= dirY * moveSpeed;
 				}
 		}	
+		
+		//Strafe Left
+		if(Gdx.input.isKeyPressed(Keys.Q)){
+			if(MapChunk.map[(int)(posX-dirX*moveSpeed)][(int)posY] == 0){
+				posX -= planeX * moveSpeed;				}
+			if(MapChunk.map[(int)posX][(int)(posY-dirY*moveSpeed)] == 0){
+				posY -= planeY * moveSpeed;				}
+		}
+		
+		//Strafe Right
+		if(Gdx.input.isKeyPressed(Keys.E)){
+			if(MapChunk.map[(int)(posX-dirX*moveSpeed)][(int)posY] == 0){
+				posX += planeX * moveSpeed;			
+				}
+			if(MapChunk.map[(int)posX][(int)(posY-dirY*moveSpeed)] == 0){
+				posY += planeY * moveSpeed;			
+				}
+		}	
+		
+		//Rotate right
 		if(Gdx.input.isKeyPressed(Keys.D)){
 			  double oldDirX = dirX;
 		      dirX = dirX * Math.cos(-rotSpeed) - dirY * Math.sin(-rotSpeed);
@@ -160,6 +191,8 @@ public class Renderer extends ApplicationAdapter {
 		      planeX = planeX * Math.cos(-rotSpeed) - planeY * Math.sin(-rotSpeed);
 		      planeY = oldPlaneX * Math.sin(-rotSpeed) + planeY * Math.cos(-rotSpeed);
 			}	
+		
+		//Rotate left
 		if(Gdx.input.isKeyPressed(Keys.A)){
 				  double oldDirX = dirX;
 			      dirX = dirX * Math.cos(rotSpeed) - dirY * Math.sin(rotSpeed);
@@ -172,3 +205,4 @@ public class Renderer extends ApplicationAdapter {
 		
 	}
 }
+
