@@ -12,10 +12,8 @@ public class RendererUtil {
 
 	public static void drawLine(ShapeRenderer shape,Color color, float x, float y1, float y2){
 
-			shape.begin(ShapeType.Line);
 			shape.setColor(color);
 			shape.line(x,y1,x,y2);
-			shape.end();
 
 	}
 }

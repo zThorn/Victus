@@ -1,5 +1,7 @@
 package com.TEAM_NAME.Fructus;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
@@ -22,10 +24,32 @@ public class Renderer extends ApplicationAdapter {
 	int drawEnd;
 	Color color;
 	ShapeRenderer shape = new ShapeRenderer();
+	double cameraX = 2;
+	double rayPosX;
+	double rayPosY;
+    double rayDirX;
+    double rayDirY;
+    double sideDistX;
+    double sideDistY;
+	int mapX;
+	int mapY;
 	
+    int stepX;
+    int stepY;
+
+    int hit; 
+    int side; 
 	
-	
-	
+	double deltaDistX;
+    double deltaDistY;
+    double perpWallDist;
+    
+    ArrayList<Integer> xBatch = new ArrayList<Integer>();
+    ArrayList<Integer> y1Batch = new ArrayList<Integer>();
+    ArrayList<Integer> y2Batch = new ArrayList<Integer>();
+    ArrayList<Color> colorBatch = new ArrayList<Color>();
+
+
 	public void init(){
 	
 	
@@ -34,31 +58,24 @@ public class Renderer extends ApplicationAdapter {
 	
 	public void render(){
 		for(int x=0; x<GameMain.screenWidth; x++){
-			double cameraX = 2 * x / (double)GameMain.screenWidth - 1;
-			double rayPosX = posX;
-			double rayPosY = posY;
-		    double rayDirX = dirX + planeX * cameraX;
-		    double rayDirY = dirY + planeY * cameraX;
+			 cameraX = 2 * x / (double)GameMain.screenWidth - 1;
+			 rayPosX = posX;
+			 rayPosY = posY;
+		     rayDirX = dirX + planeX * cameraX;
+		     rayDirY = dirY + planeY * cameraX;
 		    
 		    //which box of the map we're in  
-	      int mapX = (int)rayPosX;
-	      int mapY = (int)rayPosY;
+	         mapX = (int)rayPosX;
+	         mapY = (int)rayPosY;
 	       
-	      //length of ray from current position to next x or y-side
-	      double sideDistX;
-	      double sideDistY;
+	      
 	       
 	       //length of ray from one x or y-side to next x or y-side
-	      double deltaDistX = Math.sqrt(1 + (rayDirY * rayDirY) / (rayDirX * rayDirX));
-	      double deltaDistY = Math.sqrt(1 + (rayDirX * rayDirX) / (rayDirY * rayDirY));
-	      double perpWallDist;
-	       
-	      //what direction to step in x or y-direction (either +1 or -1)
-	      int stepX;
-	      int stepY;
+	      deltaDistX = Math.sqrt(1 + (rayDirY * rayDirY) / (rayDirX * rayDirX));
+	      deltaDistY = Math.sqrt(1 + (rayDirX * rayDirX) / (rayDirY * rayDirY));
 
-	      int hit = 0; //was there a wall hit?
-	      int side = 0; //was a NS or a EW wall hit?
+	      hit = 0; //was there a wall hit?
+	      side = 0; //was a NS or a EW wall hit?
 	      
 	      //calculate step and initial sideDist
 	      if (rayDirX < 0)
@@ -140,7 +157,11 @@ public class Renderer extends ApplicationAdapter {
 	      //if (side == 1) {color.mul(.5f);}
 
 	      //draw the pixels of the stripe as a vertical line	
-	      RendererUtil.drawLine(shape, color, x, drawStart, drawEnd);
+	      xBatch.add(x);
+	      y1Batch.add(drawStart);
+	      y2Batch.add(drawEnd);
+	      colorBatch.add(color);
+	      
 		}
 		double moveSpeed = Gdx.graphics.getDeltaTime()/2;
 		double rotSpeed = Gdx.graphics.getDeltaTime()/2;
