@@ -1,7 +1,11 @@
 #Victus
 
 ##Content
+*My gif recorder is terrible...
+-Added ability to have walls that are visible, but can be traversed.
 ![alt tag](https://raw.githubusercontent.com/zThorn/Victus/master/Docs%20and%20Resources/screenshot1.gif)
+
+--Renderer!
 ![alt tag](https://raw.githubusercontent.com/zThorn/Victus/master/Docs%20and%20Resources/screenshot.gif)
 
 ##What is Victus?
