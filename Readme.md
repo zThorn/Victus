@@ -1,6 +1,7 @@
 #Victus
 
 ##Content
+![alt tag](https://raw.githubusercontent.com/zThorn/Victus/master/Docs%20and%20Resources/screenshot1.gif)
 ![alt tag](https://raw.githubusercontent.com/zThorn/Victus/master/Docs%20and%20Resources/screenshot.gif)
 
 ##What is Victus?
