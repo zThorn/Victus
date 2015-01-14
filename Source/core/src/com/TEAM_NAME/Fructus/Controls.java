@@ -12,37 +12,45 @@ public class Controls {
 		
 		//Move forwards
 		if(Gdx.input.isKeyPressed(Keys.W)){
-			if(MapChunk.map[(int)(r.posX+r.dirX*moveSpeed)][(int)r.posY] == 0){
+			if(MapChunk.map[(int)(r.posX+r.dirX*moveSpeed)][(int)r.posY] == 0 ||
+					MapChunk.map[(int)(r.posX+r.dirX*moveSpeed)][(int)r.posY] == 7	){
 				r.posX += r.dirX * moveSpeed;
 			}
-			if(MapChunk.map[(int)r.posX][(int)(r.posY+r.dirY*moveSpeed)] == 0){
+			if(MapChunk.map[(int)r.posX][(int)(r.posY+r.dirY*moveSpeed)] == 0 ||
+					MapChunk.map[(int)(r.posX+r.dirX*moveSpeed)][(int)r.posY] == 7){
 				r.posY += r.dirY * moveSpeed;
 			}
 		}	
 		//Move Backwards
 		if(Gdx.input.isKeyPressed(Keys.S)){
-				if(MapChunk.map[(int)(r.posX-r.dirX*moveSpeed)][(int)r.posY] == 0){
+				if(MapChunk.map[(int)(r.posX-r.dirX*moveSpeed)][(int)r.posY] == 0||
+						MapChunk.map[(int)(r.posX+r.dirX*moveSpeed)][(int)r.posY] == 7){
 					r.posX -= r.dirX * moveSpeed;
 				}
-				if(MapChunk.map[(int)r.posX][(int)(r.posY-r.dirY*moveSpeed)] == 0){
+				if(MapChunk.map[(int)r.posX][(int)(r.posY-r.dirY*moveSpeed)] == 0||
+						MapChunk.map[(int)(r.posX+r.dirX*moveSpeed)][(int)r.posY] == 7){
 					r.posY -= r.dirY * moveSpeed;
 				}
 		}	
 		
 		//Strafe Left
 		if(Gdx.input.isKeyPressed(Keys.Q)){
-			if(MapChunk.map[(int)(r.posX-r.dirX*moveSpeed)][(int)r.posY] == 0){
+			if(MapChunk.map[(int)(r.posX-r.dirX*moveSpeed)][(int)r.posY] == 0||
+					MapChunk.map[(int)(r.posX+r.dirX*moveSpeed)][(int)r.posY] == 7){
 				r.posX -= r.planeX * moveSpeed;				}
-			if(MapChunk.map[(int)r.posX][(int)(r.posY-r.dirY*moveSpeed)] == 0){
+			if(MapChunk.map[(int)r.posX][(int)(r.posY-r.dirY*moveSpeed)] == 0||
+					MapChunk.map[(int)(r.posX+r.dirX*moveSpeed)][(int)r.posY] == 7){
 				r.posY -= r.planeY * moveSpeed;				}
 		}
 		
 		//Strafe Right
 		if(Gdx.input.isKeyPressed(Keys.E)){
-			if(MapChunk.map[(int)(r.posX-r.dirX*moveSpeed)][(int)r.posY] == 0){
+			if(MapChunk.map[(int)(r.posX-r.dirX*moveSpeed)][(int)r.posY] == 0||
+					MapChunk.map[(int)(r.posX+r.dirX*moveSpeed)][(int)r.posY] == 7){
 				r.posX += r.planeX * moveSpeed;			
 				}
-			if(MapChunk.map[(int)r.posX][(int)(r.posY-r.dirY*moveSpeed)] == 0){
+			if(MapChunk.map[(int)r.posX][(int)(r.posY-r.dirY*moveSpeed)] == 0||
+					MapChunk.map[(int)(r.posX+r.dirX*moveSpeed)][(int)r.posY] == 7){
 				r.posY += r.planeY * moveSpeed;			
 				}
 		}	

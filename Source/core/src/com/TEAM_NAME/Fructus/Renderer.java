@@ -135,6 +135,10 @@ public class Renderer extends ApplicationAdapter {
 		      case 4: 
 		    	  color = Color.GRAY; 
 		    	  break;
+		      case 7:
+		    	  color = Color.PINK;
+		    	  break;
+		      
 		      default: 
 		    	  color = Color.YELLOW; 
 		    	  break;
@@ -147,67 +151,6 @@ public class Renderer extends ApplicationAdapter {
 	      colorBatch.add(color);
 	      
 		}
-		double moveSpeed = Gdx.graphics.getDeltaTime()/1000;
-		double rotSpeed = Gdx.graphics.getDeltaTime()/1000;
-		
-		//Move forwards
-		if(Gdx.input.isKeyPressed(Keys.W)){
-			if(MapChunk.map[(int)(posX+dirX*moveSpeed)][(int)posY] == 0){
-				posX += dirX * moveSpeed;
-			}
-			if(MapChunk.map[(int)posX][(int)(posY+dirY*moveSpeed)] == 0){
-				posY += dirY * moveSpeed;
-			}
-		}	
-		//Move Backwards
-		if(Gdx.input.isKeyPressed(Keys.S)){
-				if(MapChunk.map[(int)(posX-dirX*moveSpeed)][(int)posY] == 0){
-					posX -= dirX * moveSpeed;
-				}
-				if(MapChunk.map[(int)posX][(int)(posY-dirY*moveSpeed)] == 0){
-					posY -= dirY * moveSpeed;
-				}
-		}	
-		
-		//Strafe Left
-		if(Gdx.input.isKeyPressed(Keys.Q)){
-			if(MapChunk.map[(int)(posX-dirX*moveSpeed)][(int)posY] == 0){
-				posX -= planeX * moveSpeed;				}
-			if(MapChunk.map[(int)posX][(int)(posY-dirY*moveSpeed)] == 0){
-				posY -= planeY * moveSpeed;				}
-		}
-		
-		//Strafe Right
-		if(Gdx.input.isKeyPressed(Keys.E)){
-			if(MapChunk.map[(int)(posX-dirX*moveSpeed)][(int)posY] == 0){
-				posX += planeX * moveSpeed;			
-				}
-			if(MapChunk.map[(int)posX][(int)(posY-dirY*moveSpeed)] == 0){
-				posY += planeY * moveSpeed;			
-				}
-		}	
-		
-		//Rotate right
-		if(Gdx.input.isKeyPressed(Keys.D)){
-			  double oldDirX = dirX;
-		      dirX = dirX * Math.cos(-rotSpeed) - dirY * Math.sin(-rotSpeed);
-		      dirY = oldDirX * Math.sin(-rotSpeed) + dirY * Math.cos(-rotSpeed);
-		      double oldPlaneX = planeX;
-		      planeX = planeX * Math.cos(-rotSpeed) - planeY * Math.sin(-rotSpeed);
-		      planeY = oldPlaneX * Math.sin(-rotSpeed) + planeY * Math.cos(-rotSpeed);
-			}	
-		
-		//Rotate left
-		if(Gdx.input.isKeyPressed(Keys.A)){
-				  double oldDirX = dirX;
-			      dirX = dirX * Math.cos(rotSpeed) - dirY * Math.sin(rotSpeed);
-			      dirY = oldDirX * Math.sin(rotSpeed) + dirY * Math.cos(rotSpeed);
-			      double oldPlaneX = planeX;
-			      planeX = planeX * Math.cos(rotSpeed) - planeY * Math.sin(rotSpeed);
-			      planeY = oldPlaneX * Math.sin(rotSpeed) + planeY * Math.cos(rotSpeed);
-				}
-
-		
 	}
 }
 
