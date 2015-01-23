@@ -16,3 +16,5 @@ public class DesktopLauncher {
 		
 	}
 }
+
+//For launching the actual game

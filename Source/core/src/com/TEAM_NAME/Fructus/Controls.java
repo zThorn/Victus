@@ -5,13 +5,22 @@ import com.badlogic.gdx.Input.Keys;
 
 public class Controls {
 
+	public int forwardKey = Keys.W;
+	public int backKey = Keys.S;
+	
+	public int rotateLeft = Keys.A;
+	public int rotateRight= Keys.D;
+	
+	public int strafeRight= Keys.E;
+	public int strafeLeft= Keys.Q;
+	
 	
 	public void update(Renderer r){
 		double moveSpeed = Gdx.graphics.getDeltaTime()*5;
 		double rotSpeed = Gdx.graphics.getDeltaTime()*3;
 		
 		//Move forwards
-		if(Gdx.input.isKeyPressed(Keys.W)){
+		if(Gdx.input.isKeyPressed(forwardKey)){
 			if(MapChunk.map[(int)(r.posX+r.dirX*moveSpeed)][(int)r.posY] == 0 ||
 					MapChunk.map[(int)(r.posX+r.dirX*moveSpeed)][(int)r.posY] == 7	){
 				r.posX += r.dirX * moveSpeed;
@@ -22,7 +31,7 @@ public class Controls {
 			}
 		}	
 		//Move Backwards
-		if(Gdx.input.isKeyPressed(Keys.S)){
+		if(Gdx.input.isKeyPressed(backKey)){
 				if(MapChunk.map[(int)(r.posX-r.dirX*moveSpeed)][(int)r.posY] == 0||
 						MapChunk.map[(int)(r.posX+r.dirX*moveSpeed)][(int)r.posY] == 7){
 					r.posX -= r.dirX * moveSpeed;
@@ -34,7 +43,7 @@ public class Controls {
 		}	
 		
 		//Strafe Left
-		if(Gdx.input.isKeyPressed(Keys.Q)){
+		if(Gdx.input.isKeyPressed(strafeLeft)){
 			if(MapChunk.map[(int)(r.posX-r.dirX*moveSpeed)][(int)r.posY] == 0||
 					MapChunk.map[(int)(r.posX+r.dirX*moveSpeed)][(int)r.posY] == 7){
 				r.posX -= r.planeX * moveSpeed;				}
@@ -44,7 +53,7 @@ public class Controls {
 		}
 		
 		//Strafe Right
-		if(Gdx.input.isKeyPressed(Keys.E)){
+		if(Gdx.input.isKeyPressed(strafeRight)){
 			if(MapChunk.map[(int)(r.posX-r.dirX*moveSpeed)][(int)r.posY] == 0||
 					MapChunk.map[(int)(r.posX+r.dirX*moveSpeed)][(int)r.posY] == 7){
 				r.posX += r.planeX * moveSpeed;			
@@ -56,7 +65,7 @@ public class Controls {
 		}	
 		
 		//Rotate right
-		if(Gdx.input.isKeyPressed(Keys.D)){
+		if(Gdx.input.isKeyPressed(rotateRight)){
 			  double oldDirX = r.dirX;
 			  r.dirX = r.dirX * Math.cos(-rotSpeed) - r.dirY * Math.sin(-rotSpeed);
 			  r.dirY = oldDirX * Math.sin(-rotSpeed) + r.dirY * Math.cos(-rotSpeed);
@@ -66,7 +75,7 @@ public class Controls {
 			}	
 		
 		//Rotate left
-		if(Gdx.input.isKeyPressed(Keys.A)){
+		if(Gdx.input.isKeyPressed(rotateLeft)){
 				  double oldDirX = r.dirX;
 				  r.dirX = r.dirX * Math.cos(rotSpeed) - r.dirY * Math.sin(rotSpeed);
 				  r.dirY = oldDirX * Math.sin(rotSpeed) + r.dirY * Math.cos(rotSpeed);
