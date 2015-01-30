@@ -1,0 +1,24 @@
+Non-Functional Requirements
+1. Usability (Ease of Use / Intuitive)
+2. Reliability (Doesn't Crash)
+	- Robustness (Unit Test / Time to Fail / Time to Recover)
+	- Safety (Information Safety)
+3. Performance
+	- Response Time (How Quickly it Starts)
+	- Scalability (Grow in Respect to Users)
+	- Throughput (Ratio of Input to Output / Not for Games)
+	- Availability (All Parts Available Within a Period of Time)
+4. Supportability
+	- Adaptability (Different Environments)
+	- Maintainability (Support Product With New Technology / Fixing Problems / Adding New Features)
+
+(bullet point under each category)
+Usability: The user can launch the game with no prior knowledge.
+Usability: The user can change the settings menu by using text descriptions of each button.
+Reliablity: Errors will be handled.
+Robustness: The game will saved every 5 minutes in case of failure. When game relaunches the user can reload the saved state.
+Availability: The game will run at 60 frames per second assuming a computer with a minimum of Intel GMA 4500MHD, 4GB RAM, and Java.
+Availability: The game will run with a minimum video resolution of 1024x768.
+Availability: The game is available after installation.
+Adaptability: The game runs on Windows but can be adapted to OS X and UNIX.
+Maintainability: The game is open-source and available on GitHub.
