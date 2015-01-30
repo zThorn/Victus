@@ -1,0 +1,8 @@
+TRAP IDEA:
+User enters room
+All Exits are blocked
+3 "Seeds?" spawn and begin moving in a random direction
+When a seed hits a wall or another seed it will ricochet(sp?) and keep moving
+User must reach a button on the other side of the room without hitting the seeds to destroy them and open the exits
+User dies if a seed is touched
+Could have a series of rounds with more seeds (final boss before moving to next fruit?)
