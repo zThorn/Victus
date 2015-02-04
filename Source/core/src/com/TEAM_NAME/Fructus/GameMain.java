@@ -60,12 +60,18 @@ public class GameMain extends Game{
 		Iterator<Integer> y1It = r.y1Batch.iterator();
 		Iterator<Integer> y2It = r.y2Batch.iterator();
 		Iterator<Integer> lineHeight = r.lineHeightBatch.iterator();
-        
+		int textX = 0;
+
 		while(y2It.hasNext()){
 			int tempY = y2It.next();
 			float height = y1It.next() - tempY;
 	        //batch.draw(texture, (float)left, (float)wall.top, (float)width, (float)wall.height, (int)textureX, 0, 1, texture.getHeight(), false, true);
-	        batch.draw(img, (float)xIt.next(), (float)tempY, 64,height, 64, 0, 1,64, false, true);
+	        batch.draw(img, (float)xIt.next(), (float)tempY, 64,height, textX, 0, 1,64, false, true);
+	        if(textX == 64){textX=0;
+	        } else{
+	        	textX++;
+	        }
+	        
 	        
 		}
         batch.end();
