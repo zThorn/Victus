@@ -47,10 +47,10 @@ public class Renderer extends ApplicationAdapter {
     ArrayList<Integer> xBatch = new ArrayList<Integer>();
     ArrayList<Integer> y1Batch = new ArrayList<Integer>();
     ArrayList<Integer> y2Batch = new ArrayList<Integer>();
-    ArrayList<Color> colorBatch = new ArrayList<Color>();
+    ArrayList<Integer> lineHeightBatch = new ArrayList<Integer>();
 
 	public void render(){
-		for(int x=0; x<GameMain.screenWidth; x++){
+		for(int x=0; x<GameMain.screenWidth; x++ ){
 			 cameraX = 2 * x / (double)GameMain.screenWidth - 1;
 			 rayPosX = posX;
 			 rayPosY = posY;
@@ -121,34 +121,12 @@ public class Renderer extends ApplicationAdapter {
 	      	
 	      if(drawEnd >= GameMain.screenHeight)
 	    	drawEnd = GameMain.screenHeight - 1;
-				      
-	      switch(MapChunk.map[mapX][mapY]){
-		      case 1:
-		    	 color = Color.RED;
-		    	 break;
-		      case 2: 
-		    	  color = Color.OLIVE; 
-		    	  break;
-		      case 3: 
-		    	  color = Color.NAVY; 
-		    	  break;
-		      case 4: 
-		    	  color = Color.GRAY; 
-		    	  break;
-		      case 7:
-		    	  color = Color.PINK;
-		    	  break;
-		      
-		      default: 
-		    	  color = Color.YELLOW; 
-		    	  break;
-	      }
 
 	      //draw the pixels of the stripe as a vertical line	
 	      xBatch.add(x);
 	      y1Batch.add(drawStart);
 	      y2Batch.add(drawEnd);
-	      colorBatch.add(color);
+	      lineHeightBatch.add(lineHeight);
 	      
 		}
 	}

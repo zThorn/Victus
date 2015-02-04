@@ -42,6 +42,7 @@ public class GameMain extends Game{
 		Gdx.gl.glClear(Gdx.gl.GL_COLOR_BUFFER_BIT);
 		font = new BitmapFont();
 		GLProfiler.enable();
+		img = new Texture(Gdx.files.internal("texture0.png"));
 
 	}
 
@@ -55,22 +56,24 @@ public class GameMain extends Game{
 		font.draw(batch, "fps: " + Gdx.graphics.getFramesPerSecond(), 20, 30);   
 		font.draw(batch, "draw calls: "+GLProfiler.drawCalls, 20,45);
 		GLProfiler.reset();
-		batch.end();
 		Iterator<Integer> xIt = r.xBatch.iterator();
 		Iterator<Integer> y1It = r.y1Batch.iterator();
 		Iterator<Integer> y2It = r.y2Batch.iterator();
-		Iterator<Color> colorIt = r.colorBatch.iterator();
-		
-		shape.begin(ShapeRenderer.ShapeType.Line);
-		while(xIt.hasNext()){
-			RendererUtil.drawLine(shape, colorIt.next(), xIt.next(), y1It.next(), y2It.next());
+		Iterator<Integer> lineHeight = r.lineHeightBatch.iterator();
+        
+		while(y2It.hasNext()){
+			int tempY = y2It.next();
+			float height = y1It.next() - tempY;
+	        //batch.draw(texture, (float)left, (float)wall.top, (float)width, (float)wall.height, (int)textureX, 0, 1, texture.getHeight(), false, true);
+	        batch.draw(img, (float)xIt.next(), (float)tempY, 64,height, 64, 0, 1,64, false, true);
+	        
 		}
-		shape.end();
+        batch.end();
+
 		//Movement
 		r.xBatch.clear();
 		r.y1Batch.clear();
 		r.y2Batch.clear();
-		r.colorBatch.clear();
 
 
 		
