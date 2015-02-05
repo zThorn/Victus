@@ -42,7 +42,7 @@ public class GameMain extends Game{
 		Gdx.gl.glClear(Gdx.gl.GL_COLOR_BUFFER_BIT);
 		font = new BitmapFont();
 		GLProfiler.enable();
-		img = new Texture(Gdx.files.internal("texture0.png"));
+		img = new Texture(Gdx.files.internal("game_textures/orange.png"));
 
 	}
 
@@ -60,14 +60,21 @@ public class GameMain extends Game{
 		Iterator<Integer> y1It = r.y1Batch.iterator();
 		Iterator<Integer> y2It = r.y2Batch.iterator();
 		Iterator<Integer> lineHeight = r.lineHeightBatch.iterator();
+		Iterator<Integer> temp = r.testBatch.iterator();
 		int textX = 0;
 
 		while(y2It.hasNext()){
 			int tempY = y2It.next();
-			float height = y1It.next() - tempY;
+			int tempY1 = y1It.next();
+			float height = tempY1 - tempY;
 	        //batch.draw(texture, (float)left, (float)wall.top, (float)width, (float)wall.height, (int)textureX, 0, 1, texture.getHeight(), false, true);
-	        batch.draw(img, (float)xIt.next(), (float)tempY, 64,height, textX, 0, 1,64, false, true);
-	        if(textX == 64){textX=0;
+	        batch.draw(img, (float)xIt.next()*3.2f, (float)tempY, 3.2f,(float)height, temp.next(), 0, 1,64, false, true);
+	        //TextX needs to vary based on the distance from the wall, stretching if closer
+	        
+	        
+	        
+	        if(textX == 64){
+	        	textX=0;
 	        } else{
 	        	textX++;
 	        }

@@ -17,17 +17,19 @@ public class Controls {
 	
 	public void update(Renderer r){
 		double moveSpeed = Gdx.graphics.getDeltaTime()*5;
-		double rotSpeed = Gdx.graphics.getDeltaTime()*3;
+		double rotSpeed = Gdx.graphics.getDeltaTime()*.5;
 		
 		//Move forwards
 		if(Gdx.input.isKeyPressed(forwardKey)){
 			if(MapChunk.map[(int)(r.posX+r.dirX*moveSpeed)][(int)r.posY] == 0 ||
 					MapChunk.map[(int)(r.posX+r.dirX*moveSpeed)][(int)r.posY] == 7	){
-				r.posX += r.dirX * moveSpeed;
+				r.posX += Math.asin(r.dirX) * moveSpeed;
+				System.out.println(r.dirX);
 			}
 			if(MapChunk.map[(int)r.posX][(int)(r.posY+r.dirY*moveSpeed)] == 0 ||
 					MapChunk.map[(int)(r.posX+r.dirX*moveSpeed)][(int)r.posY] == 7){
-				r.posY += r.dirY * moveSpeed;
+				r.posY += (Math.asin(r.dirX)*moveSpeed);
+				System.out.println(r.dirX);
 			}
 		}	
 		//Move Backwards
