@@ -23,13 +23,12 @@ public class Controls {
 		if(Gdx.input.isKeyPressed(forwardKey)){
 			if(MapChunk.map[(int)(r.posX+r.dirX*moveSpeed)][(int)r.posY] == 0 ||
 					MapChunk.map[(int)(r.posX+r.dirX*moveSpeed)][(int)r.posY] == 7	){
-				r.posX += Math.asin(r.dirX) * moveSpeed;
-				System.out.println(r.dirX);
+				r.posX += r.dirX * moveSpeed;
+				System.out.println(Math.asin(r.dirX));
 			}
 			if(MapChunk.map[(int)r.posX][(int)(r.posY+r.dirY*moveSpeed)] == 0 ||
 					MapChunk.map[(int)(r.posX+r.dirX*moveSpeed)][(int)r.posY] == 7){
-				r.posY += (Math.asin(r.dirX)*moveSpeed);
-				System.out.println(r.dirX);
+				r.posY += r.dirY*moveSpeed;
 			}
 		}	
 		//Move Backwards

@@ -68,7 +68,7 @@ public class GameMain extends Game{
 			int tempY1 = y1It.next();
 			float height = tempY1 - tempY;
 	        //batch.draw(texture, (float)left, (float)wall.top, (float)width, (float)wall.height, (int)textureX, 0, 1, texture.getHeight(), false, true);
-	        batch.draw(img, (float)xIt.next()*3.2f, (float)tempY, 3.2f,(float)height, temp.next(), 0, 1,64, false, true);
+	        batch.draw(img, (float)xIt.next(), (float)tempY, 3.2f,(float)height, temp.next(), 0, 1,64, false, true);
 	        //TextX needs to vary based on the distance from the wall, stretching if closer
 	        
 	        
