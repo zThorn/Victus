@@ -17,17 +17,16 @@ public class Controls {
 	
 	public void update(Renderer r){
 		double moveSpeed = Gdx.graphics.getDeltaTime()*5;
-		double rotSpeed = Gdx.graphics.getDeltaTime()*.5;
+		double rotSpeed = Gdx.graphics.getDeltaTime()*1.25;
 		
 		//Move forwards
 		if(Gdx.input.isKeyPressed(forwardKey)){
-			if(MapChunk.map[(int)(r.posX+r.dirX*moveSpeed)][(int)r.posY] == 0 ||
-					MapChunk.map[(int)(r.posX+r.dirX*moveSpeed)][(int)r.posY] == 7	){
+			if(MapChunk.map[(int) Math.round((r.posX+r.dirX*moveSpeed))][(int) Math.round(r.posY)] == 0 ||
+					MapChunk.map[(int)Math.round(r.posX+r.dirX*moveSpeed)][(int)Math.round(r.posY)] == 7	){
 				r.posX += r.dirX * moveSpeed;
-				System.out.println(Math.asin(r.dirX));
 			}
-			if(MapChunk.map[(int)r.posX][(int)(r.posY+r.dirY*moveSpeed)] == 0 ||
-					MapChunk.map[(int)(r.posX+r.dirX*moveSpeed)][(int)r.posY] == 7){
+			if(MapChunk.map[(int)Math.round(r.posX)][(int)Math.round(r.posY+r.dirY*moveSpeed)] == 0 ||
+					MapChunk.map[(int)Math.round(r.posX+r.dirX*moveSpeed)][(int)Math.round(r.posY)] == 7){
 				r.posY += r.dirY*moveSpeed;
 			}
 		}	

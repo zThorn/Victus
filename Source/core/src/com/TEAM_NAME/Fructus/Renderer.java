@@ -49,6 +49,7 @@ public class Renderer extends ApplicationAdapter {
     ArrayList<Integer> y2Batch = new ArrayList<Integer>();
     ArrayList<Integer> lineHeightBatch = new ArrayList<Integer>();
     ArrayList<Integer> testBatch = new ArrayList<Integer>();
+    ArrayList<Integer> selectTexture = new ArrayList<Integer>();
 
 	public void render(){
 		for(int x=0; x<GameMain.screenWidth; x++ ){
@@ -141,6 +142,7 @@ public class Renderer extends ApplicationAdapter {
 	      y2Batch.add(drawEnd);
 	      lineHeightBatch.add(lineHeight);
 	      testBatch.add(texX);
+	      selectTexture.add(MapChunk.map[mapX][mapY]);
 	      
 		}
 	}

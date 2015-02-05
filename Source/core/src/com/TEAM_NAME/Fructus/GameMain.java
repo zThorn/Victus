@@ -21,7 +21,9 @@ import com.badlogic.gdx.graphics.profiling.GLProfiler;
 
 public class GameMain extends Game{
 	SpriteBatch batch;
-	Texture img;
+	Texture img1;
+	Texture img2;
+
 	static int screenWidth = 960;
 	static int screenHeight = 540;
 	OrthographicCamera camera;
@@ -42,7 +44,8 @@ public class GameMain extends Game{
 		Gdx.gl.glClear(Gdx.gl.GL_COLOR_BUFFER_BIT);
 		font = new BitmapFont();
 		GLProfiler.enable();
-		img = new Texture(Gdx.files.internal("game_textures/orange.png"));
+		img1 = new Texture(Gdx.files.internal("game_textures/pineapple.png"));
+		img2 = new Texture(Gdx.files.internal("game_textures/purple_grape.png"));
 
 	}
 
@@ -59,34 +62,30 @@ public class GameMain extends Game{
 		Iterator<Integer> xIt = r.xBatch.iterator();
 		Iterator<Integer> y1It = r.y1Batch.iterator();
 		Iterator<Integer> y2It = r.y2Batch.iterator();
-		Iterator<Integer> lineHeight = r.lineHeightBatch.iterator();
 		Iterator<Integer> temp = r.testBatch.iterator();
+		Iterator<Integer> selectedTile = r.selectTexture.iterator();
 		int textX = 0;
-
 		while(y2It.hasNext()){
 			int tempY = y2It.next();
 			int tempY1 = y1It.next();
+			int tileNumber = selectedTile.next();
 			float height = tempY1 - tempY;
 	        //batch.draw(texture, (float)left, (float)wall.top, (float)width, (float)wall.height, (int)textureX, 0, 1, texture.getHeight(), false, true);
-	        batch.draw(img, (float)xIt.next(), (float)tempY, 3.2f,(float)height, temp.next(), 0, 1,64, false, true);
-	        //TextX needs to vary based on the distance from the wall, stretching if closer
-	        
-	        
-	        
-	        if(textX == 64){
-	        	textX=0;
-	        } else{
-	        	textX++;
-	        }
-	        
+			if(tileNumber == 1){
+	        batch.draw(img1, (float)xIt.next(), (float)tempY, 3.2f,(float)height, temp.next()+50, 0, 1,64, false, true);
+			} else {
+		       batch.draw(img2, (float)xIt.next(), (float)tempY, 3.2f,(float)height, temp.next()+50, 0, 1,64, false, true);
+			}
 	        
 		}
-        batch.end();
+		batch.end();
 
 		//Movement
 		r.xBatch.clear();
 		r.y1Batch.clear();
 		r.y2Batch.clear();
+		r.selectTexture.clear();
+		r.testBatch.clear();
 
 
 		
