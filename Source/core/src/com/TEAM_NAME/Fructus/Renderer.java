@@ -3,73 +3,64 @@ package com.TEAM_NAME.Fructus;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.FPSLogger;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 
 public class Renderer extends ApplicationAdapter {
 	
-	double posX = 22;
-	double posY = 20;
-	double dirX = -1;
-	double dirY = 0;
-	double planeX = 0;
-	double planeY = .67f;
-	double time = 0;
-	double oldTime = 0;
-	int drawStart;
-	int drawEnd;
-	Color color;
-	ShapeRenderer shape = new ShapeRenderer();
-	float cameraX = -2;
-	double rayPosX;
-	double rayPosY;
-    double rayDirX;
-    double rayDirY;
-    float sideDistX;
-    float sideDistY;
-	int mapX;
-	int mapY;
+	static double posX = 22;
+	static double posY = 20;
+	static double dirX = -1;
+	static double dirY = 0;
+	static double planeX = 0;
+	static double planeY = .67f;
 	
-    int stepX;
-    int stepY;
+	static ArrayList<Integer> xBatch = new ArrayList<Integer>();
+	static ArrayList<Integer> y1Batch = new ArrayList<Integer>();
+	static ArrayList<Integer> y2Batch = new ArrayList<Integer>();
+	static ArrayList<Integer> lineHeightBatch = new ArrayList<Integer>();
+	static ArrayList<Integer> textureXBatch = new ArrayList<Integer>();
+	static ArrayList<Integer> selectTexture = new ArrayList<Integer>();
 
-    int hit; 
-    int side; 
-	
-	float deltaDistX;
-    float deltaDistY;
-    float perpWallDist;
-    
-    ArrayList<Integer> xBatch = new ArrayList<Integer>();
-    ArrayList<Integer> y1Batch = new ArrayList<Integer>();
-    ArrayList<Integer> y2Batch = new ArrayList<Integer>();
-    ArrayList<Integer> lineHeightBatch = new ArrayList<Integer>();
-    ArrayList<Integer> testBatch = new ArrayList<Integer>();
-    ArrayList<Integer> selectTexture = new ArrayList<Integer>();
+	public void render(){		
+		int drawStart;
+		int drawEnd;
+		float cameraX = -2;
+		double rayPosX;
+		double rayPosY;
+	    double rayDirX;
+	    double rayDirY;
+	    double wallX; //Where was the wall hit?
 
-	public void render(){
+	    float sideDistX;
+	    float sideDistY;
+		int mapX;
+		int mapY;
+		
+	    int stepX;
+	    int stepY;
+
+	    boolean hit; 
+		int side = 0;
+		float deltaDistX;
+	    float deltaDistY;
+	    float perpWallDist;
+	    
 		for(int x=0; x<GameMain.screenWidth; x++ ){
 			 cameraX = 2 * x / (float)GameMain.screenWidth - 1;
 			 rayPosX = posX;
 			 rayPosY = posY;
 		     rayDirX = dirX + planeX * cameraX;
 		     rayDirY = dirY + planeY * cameraX;
-		    
-		    //which box of the map we're in  
+		     
+		     //Map Coordinates
 	         mapX = (int)rayPosX;
 	         mapY = (int)rayPosY;
 	
-	         //length of ray from one x or y-side to next x or y-side
+	         //Rays that represent distance between next x or y
 	         deltaDistX = (float) Math.sqrt(1+ (rayDirY * rayDirY) / (rayDirX * rayDirX));
 	         deltaDistY = (float) Math.sqrt(1+ (rayDirX * rayDirX) / (rayDirY * rayDirY));
 
-	         hit = 0; //was there a wall hit?
+	         hit = false; 
 	      
-	         //calculate step and initial sideDist
 		      if (rayDirX < 0){
 		        stepX = -1;
 		        sideDistX = (float) ((rayPosX - mapX) * deltaDistX);
@@ -87,9 +78,7 @@ public class Renderer extends ApplicationAdapter {
 		        sideDistY = (float) ((mapY + 1f - rayPosY) * deltaDistY);
 		      }
 	      
-	      //perform DDA
-	      while (hit == 0){
-	        //jump to next map square, OR in x-direction, OR in y-direction
+	      while (!hit){
 	        if (sideDistX < sideDistY){
 	          sideDistX += deltaDistX;
 	          mapX += stepX;
@@ -101,22 +90,21 @@ public class Renderer extends ApplicationAdapter {
 	          side = 1;
 	        	
 	        }
-	        //Check if ray has hit a wall
+	        //Check if the ray has hit a wall
 	        if (MapChunk.map[mapX][mapY] > 0) 
-	        	hit = 1;
+	        	hit = true;
 	      } 
 		
-	      //Calculate distance projected on camera direction (oblique distance will give fisheye effect!)
 	      if (side == 0)
 	    	  perpWallDist = (float) Math.abs((mapX - rayPosX + (1 - stepX) / 2) / rayDirX);
 	      else
 	    	  perpWallDist = (float) Math.abs((mapY - rayPosY + (1 - stepY) / 2) / rayDirY);
 	      
-	      //Calculate height of line to draw on screen
+	      //Calculates the height of the line to draw on screen
 	      int lineHeight = (int) Math.abs((int)GameMain.screenHeight / perpWallDist);
 	      
 	       
-	      //calculate lowest and highest pixel to fill in current stripe
+	      //calculates the start and end pixel to fill in current render stripe
 	      drawStart = -lineHeight / 2 + GameMain.screenHeight / 2;
 	      
 	      if(drawStart < 0)drawStart = 0;
@@ -125,8 +113,6 @@ public class Renderer extends ApplicationAdapter {
 	      if(drawEnd >= GameMain.screenHeight)
 	    	drawEnd = GameMain.screenHeight - 1;
 	      
-	      //calculate value of wallX
-	      double wallX; //where exactly the wall was hit
 	      if (side == 1) wallX = rayPosX + ((mapY - rayPosY + (1 - stepY) / 2) / rayDirY) * rayDirX;
 	      else       wallX = rayPosY + ((mapX - rayPosX + (1 - stepX) / 2) / rayDirX) * rayDirY;
 	      wallX -= Math.floor((wallX));
@@ -135,13 +121,13 @@ public class Renderer extends ApplicationAdapter {
 	      int texX = (int)wallX * 64;
 	      if(side == 0 && rayDirX > 0) texX = 64 - texX - 1;
 	      if(side == 1 && rayDirY < 0) texX = 64 - texX - 1;
-
-	      //draw the pixels of the stripe as a vertical line	
+	      
+	      //Add all values to the batch now
 	      xBatch.add(x);
 	      y1Batch.add(drawStart);
 	      y2Batch.add(drawEnd);
 	      lineHeightBatch.add(lineHeight);
-	      testBatch.add(texX);
+	      textureXBatch.add(texX);
 	      selectTexture.add(MapChunk.map[mapX][mapY]);
 	      
 		}
