@@ -21,45 +21,39 @@ public class Controls {
 		
 		//Move forwards
 		if(Gdx.input.isKeyPressed(forwardKey)){
-			if(MapChunk.map[(int) Math.floor((Renderer.posX+Renderer.dirX*moveSpeed))][(int) Math.round(Renderer.posY)] == 0 ||
-					MapChunk.map[(int)Math.floor(Renderer.posX+Renderer.dirX*moveSpeed)][(int)Math.round(Renderer.posY)] == 7	){
+			if(MapChunk.map[(int) Math.floor((Renderer.posX+Renderer.dirX*moveSpeed))][(int) Math.round(Renderer.posY)] == 0){
 				Renderer.posX += Renderer.dirX * moveSpeed;
 			}
-			if(MapChunk.map[(int)Math.round(Renderer.posX)][(int)Math.floor(Renderer.posY+Renderer.dirY*moveSpeed)] == 0 ||
-					MapChunk.map[(int)Math.floor(Renderer.posX+Renderer.dirX*moveSpeed)][(int)Math.round(Renderer.posY)] == 7){
+			if(MapChunk.map[(int)Math.round(Renderer.posX)][(int)Math.floor(Renderer.posY+Renderer.dirY*moveSpeed)] == 0){
 				Renderer.posY += Renderer.dirY*moveSpeed;
 			}
 		}	
 		//Move Backwards
 		if(Gdx.input.isKeyPressed(backKey)){
-				if(MapChunk.map[(int)Math.floor(Renderer.posX-Renderer.dirX*moveSpeed)][(int)Renderer.posY] == 0||
-						MapChunk.map[(int)(Renderer.posX+Renderer.dirX*moveSpeed)][(int)Renderer.posY] == 7){
+				if(MapChunk.map[(int)Math.floor(Renderer.posX-Renderer.dirX*moveSpeed)][(int)Renderer.posY] == 0){
 					Renderer.posX -= Renderer.dirX * moveSpeed;
 				}
-				if(MapChunk.map[(int)Renderer.posX][(int)Math.floor(Renderer.posY-Renderer.dirY*moveSpeed)] == 0||
-						MapChunk.map[(int)(Renderer.posX+Renderer.dirX*moveSpeed)][(int)Renderer.posY] == 7){
+				if(MapChunk.map[(int)Renderer.posX][(int)Math.floor(Renderer.posY-Renderer.dirY*moveSpeed)] == 0){
 					Renderer.posY -= Renderer.dirY * moveSpeed;
 				}
 		}	
 		
 		//Strafe Left
 		if(Gdx.input.isKeyPressed(strafeLeft)){
-			if(MapChunk.map[(int)Math.floor(Renderer.posX-Renderer.dirX*moveSpeed)][(int)Renderer.posY] == 0||
-					MapChunk.map[(int)(Renderer.posX+Renderer.dirX*moveSpeed)][(int)Renderer.posY] == 7){
-				Renderer.posX -= Renderer.planeX * moveSpeed;				}
-			if(MapChunk.map[(int)Renderer.posX][(int)Math.floor(Renderer.posY-Renderer.dirY*moveSpeed)] == 0||
-					MapChunk.map[(int)(Renderer.posX+Renderer.dirX*moveSpeed)][(int)Renderer.posY] == 7){
-				Renderer.posY -= Renderer.planeY * moveSpeed;				}
+			if(MapChunk.map[(int)Math.floor((Renderer.posX-Renderer.dirX*moveSpeed)+.5*-Renderer.dirX)][(int)Renderer.posY] == 0){
+				Renderer.posX -= Renderer.planeX * moveSpeed;
+            }
+			if(MapChunk.map[(int)Renderer.posX][(int)Math.floor((Renderer.posY-Renderer.dirY*moveSpeed)+.5*-Renderer.dirY)] == 0){
+				Renderer.posY -= Renderer.planeY * moveSpeed;
+            }
 		}
 		
 		//Strafe Right
 		if(Gdx.input.isKeyPressed(strafeRight)){
-			if(MapChunk.map[(int)Math.floor(Renderer.posX-Renderer.dirX*moveSpeed)][(int)Renderer.posY] == 0||
-					MapChunk.map[(int)(Renderer.posX+Renderer.dirX*moveSpeed)][(int)Renderer.posY] == 7){
+			if(MapChunk.map[(int)Math.floor((Renderer.posX-Renderer.dirX*moveSpeed)+.5*-Renderer.dirX)][(int)Renderer.posY] == 0){
 				Renderer.posX += Renderer.planeX * moveSpeed;			
 				}
-			if(MapChunk.map[(int)Renderer.posX][(int)Math.floor(Renderer.posY-Renderer.dirY*moveSpeed)] == 0||
-					MapChunk.map[(int)(Renderer.posX+Renderer.dirX*moveSpeed)][(int)Renderer.posY] == 7){
+			if(MapChunk.map[(int)Renderer.posX][(int)Math.floor((Renderer.posY-Renderer.dirY*moveSpeed)+.5*-Renderer.dirY)] == 0){
 				Renderer.posY += Renderer.planeY * moveSpeed;			
 				}
 		}	

@@ -5,7 +5,6 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -21,7 +20,6 @@ public class GameMain extends Game{
 
 	static int screenWidth = 800;
 	static int screenHeight = 600;
-	OrthographicCamera camera;
 	Renderer r;
 	ShapeRenderer shape;
 	Controls c;
@@ -66,8 +64,5 @@ public class GameMain extends Game{
 			GLProfiler.reset();
 			RendererUtil.drawTextures(r,batch,img1,img2,img3,img4);
 		batch.end();
-
-	
-
 		}		
 }
