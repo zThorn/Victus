@@ -17,7 +17,7 @@ public class Renderer extends ApplicationAdapter {
 	static ArrayList<Integer> y1Batch = new ArrayList<Integer>();
 	static ArrayList<Integer> y2Batch = new ArrayList<Integer>();
 	static ArrayList<Integer> lineHeightBatch = new ArrayList<Integer>();
-	static ArrayList<Integer> textureXBatch = new ArrayList<Integer>();
+	static ArrayList<Double> textureXBatch = new ArrayList<Double>();
 	static ArrayList<Integer> selectTexture = new ArrayList<Integer>();
 
 	public void render(){		
@@ -113,21 +113,23 @@ public class Renderer extends ApplicationAdapter {
 	      if(drawEnd >= GameMain.screenHeight)
 	    	drawEnd = GameMain.screenHeight - 1;
 	      
-	      if (side == 1) wallX = rayPosX + ((mapY - rayPosY + (1 - stepY) / 2) / rayDirY) * rayDirX;
-	      else       wallX = rayPosY + ((mapX - rayPosX + (1 - stepX) / 2) / rayDirX) * rayDirY;
-	      wallX -= Math.floor((wallX));
+	      if (side == 1)
+              wallX = (rayPosX + ((mapY - rayPosY + (1 - stepY) / 2) / rayDirY) * rayDirX);
+	      else
+              wallX = (rayPosY + ((mapX - rayPosX + (1 - stepX) / 2) / rayDirX) * rayDirY);
+	      wallX -= Math.floor(wallX);
 	       
 	      //x coordinate on the texture
 	      int texX = (int)wallX * 64;
 	      if(side == 0 && rayDirX > 0) texX = 64 - texX - 1;
 	      if(side == 1 && rayDirY < 0) texX = 64 - texX - 1;
-	      
+	      System.out.println(wallX);
 	      //Add all values to the batch now
 	      xBatch.add(x);
 	      y1Batch.add(drawStart);
 	      y2Batch.add(drawEnd);
 	      lineHeightBatch.add(lineHeight);
-	      textureXBatch.add(texX);
+	      textureXBatch.add(wallX);
 	      selectTexture.add(MapChunk.map[mapX][mapY]);
 	      
 		}

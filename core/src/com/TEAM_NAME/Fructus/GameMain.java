@@ -39,7 +39,7 @@ public class GameMain extends Game{
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		GLProfiler.enable();
 		
-		img1 = new Texture(Gdx.files.internal("game_textures/pineapple.png"));
+		img1 = new Texture(Gdx.files.internal("game_textures/grapefruit.png"));
 		img2 = new Texture(Gdx.files.internal("game_textures/purple_grape.png"));
 		img3 = new Texture(Gdx.files.internal("game_textures/red_apple.png"));
 		img4 = new Texture(Gdx.files.internal("game_textures/strawberry.png"));
@@ -62,7 +62,7 @@ public class GameMain extends Game{
 		batch.begin();  
 			RendererUtil.renderDebug(font,batch);
 			GLProfiler.reset();
-			RendererUtil.drawTextures(r,batch,img1,img2,img3,img4);
+			RendererUtil.drawTextures(batch,img1,img2,img3,img4);
 		batch.end();
 		}		
 }

@@ -22,8 +22,9 @@ public class RendererUtil {
 		Iterator<Integer> xIt = Renderer.xBatch.iterator();
 		Iterator<Integer> y1It = Renderer.y1Batch.iterator();
 		Iterator<Integer> y2It = Renderer.y2Batch.iterator();
-		Iterator<Integer> textureXBatch = Renderer.textureXBatch.iterator();
+		Iterator<Double> textureXBatch = Renderer.textureXBatch.iterator();
 		Iterator<Integer> selectedTile = Renderer.selectTexture.iterator();
+        int textX = 1;
 
 		while(y2It.hasNext()){
 			int tempY = y2It.next();
@@ -32,16 +33,21 @@ public class RendererUtil {
 			float height = tempY1 - tempY;
 	        //batch.draw(texture, (float)left, (float)wall.top, (float)width, (float)wall.height, (int)textureX, 0, 1, texture.getHeight(), false, true);
 			if(tileNumber == 1){
-	        batch.draw(img1, (float)xIt.next(), (float)tempY, 3.2f,height, textureXBatch.next()+50, 0, 1,64, false, true);
+	        batch.draw(img1, (float) xIt.next(), (float) tempY, 3.2f, height, textX, 0, 1, 64, false, true);
 			} else if(tileNumber == 2) {
-		       batch.draw(img2, (float)xIt.next(), (float)tempY, 3.2f,height, textureXBatch.next()+50, 0, 1,64, false, true);
+		       batch.draw(img2, (float)xIt.next(), (float)tempY, 3.2f,height, textX, 0, 1,64, false, true);
 			} else if(tileNumber == 3){
-			   batch.draw(img3, (float)xIt.next(), (float)tempY, 3.2f,height, textureXBatch.next()+50, 0, 1,64, false, true);
+			   batch.draw(img3, (float)xIt.next(), (float)tempY, 3.2f,height, textX, 0, 1,64, false, true);
 			} else if(tileNumber == 4){
-			   batch.draw(img4, (float)xIt.next(), (float)tempY, 3.2f,height, textureXBatch.next()+50, 0, 1,64, false, true);
+			   batch.draw(img4, (float)xIt.next(), (float)tempY, 3.2f,height, textX, 0, 1,64, false, true);
 			} else{
-		        batch.draw(img1, (float)xIt.next(), (float)tempY, 3.2f,height, textureXBatch.next()+50, 0, 1,64, false, true);
+		        batch.draw(img1, (float)xIt.next(), (float)tempY, 3.2f,height, textX, 0, 1,64, false, true);
 			}
+
+            if(textX == 64){textX=0;
+                	        } else{
+                	        	textX= (int)((64*textureXBatch.next()));
+                	        }
 	        
 		}
 		Renderer.xBatch.clear();
