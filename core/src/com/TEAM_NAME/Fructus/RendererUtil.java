@@ -18,7 +18,7 @@ public class RendererUtil {
 			shape.line(x,y1,x,y2);
 	}
 	
-	public static void drawTextures(Renderer r, SpriteBatch batch, Texture img1, Texture img2, Texture img3, Texture img4){
+	public static void drawTextures(SpriteBatch batch, Texture img1, Texture img2, Texture img3, Texture img4){
 		Iterator<Integer> xIt = Renderer.xBatch.iterator();
 		Iterator<Integer> y1It = Renderer.y1Batch.iterator();
 		Iterator<Integer> y2It = Renderer.y2Batch.iterator();
@@ -32,21 +32,22 @@ public class RendererUtil {
 			float height = tempY1 - tempY;
 	        //batch.draw(texture, (float)left, (float)wall.top, (float)width, (float)wall.height, (int)textureX, 0, 1, texture.getHeight(), false, true);
 			if(tileNumber == 1){
-	        batch.draw(img1, (float)xIt.next(), (float)tempY, 3.2f,(float)height, textureXBatch.next()+50, 0, 1,64, false, true);
+	        batch.draw(img1, (float)xIt.next(), (float)tempY, 3.2f,height, textureXBatch.next()+50, 0, 1,64, false, true);
 			} else if(tileNumber == 2) {
-		       batch.draw(img2, (float)xIt.next(), (float)tempY, 3.2f,(float)height, textureXBatch.next()+50, 0, 1,64, false, true);
+		       batch.draw(img2, (float)xIt.next(), (float)tempY, 3.2f,height, textureXBatch.next()+50, 0, 1,64, false, true);
 			} else if(tileNumber == 3){
-			   batch.draw(img3, (float)xIt.next(), (float)tempY, 3.2f,(float)height, textureXBatch.next()+50, 0, 1,64, false, true);
+			   batch.draw(img3, (float)xIt.next(), (float)tempY, 3.2f,height, textureXBatch.next()+50, 0, 1,64, false, true);
 			} else if(tileNumber == 4){
-			   batch.draw(img4, (float)xIt.next(), (float)tempY, 3.2f,(float)height, textureXBatch.next()+50, 0, 1,64, false, true);
+			   batch.draw(img4, (float)xIt.next(), (float)tempY, 3.2f,height, textureXBatch.next()+50, 0, 1,64, false, true);
 			} else{
-		        batch.draw(img1, (float)xIt.next(), (float)tempY, 3.2f,(float)height, textureXBatch.next()+50, 0, 1,64, false, true);
+		        batch.draw(img1, (float)xIt.next(), (float)tempY, 3.2f,height, textureXBatch.next()+50, 0, 1,64, false, true);
 			}
 	        
 		}
 		Renderer.xBatch.clear();
 		Renderer.y1Batch.clear();
 		Renderer.y2Batch.clear();
+        Renderer.lineHeightBatch.clear();
 		Renderer.selectTexture.clear();
 		Renderer.textureXBatch.clear();
 	}
