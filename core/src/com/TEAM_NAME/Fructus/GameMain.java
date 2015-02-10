@@ -17,6 +17,7 @@ public class GameMain extends Game{
 	Texture img2;
 	Texture img3;
 	Texture img4;
+    Texture img5;
 
 	static int screenWidth = 800;
 	static int screenHeight = 600;
@@ -43,6 +44,7 @@ public class GameMain extends Game{
 		img2 = new Texture(Gdx.files.internal("game_textures/purple_grape.png"));
 		img3 = new Texture(Gdx.files.internal("game_textures/red_apple.png"));
 		img4 = new Texture(Gdx.files.internal("game_textures/strawberry.png"));
+        img5 = new Texture(Gdx.files.internal("game_textures/gross.png"));
 		Gdx.graphics.setVSync(false);
 		
 
@@ -62,7 +64,7 @@ public class GameMain extends Game{
 		batch.begin();  
 			RendererUtil.renderDebug(font,batch);
 			GLProfiler.reset();
-			RendererUtil.drawTextures(batch,img1,img2,img3,img4);
+			RendererUtil.drawTextures(batch,img1,img2,img3,img4, img5);
 		batch.end();
 		}		
 }

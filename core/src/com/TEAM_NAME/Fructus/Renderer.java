@@ -19,15 +19,18 @@ public class Renderer extends ApplicationAdapter {
 	static ArrayList<Integer> lineHeightBatch = new ArrayList<Integer>();
 	static ArrayList<Double> textureXBatch = new ArrayList<Double>();
 	static ArrayList<Integer> selectTexture = new ArrayList<Integer>();
+    static ArrayList<Integer> floorTextureXBatch = new ArrayList<Integer>();
+    static ArrayList<Integer> floorTextureYBatch = new ArrayList<Integer>();
 
-	public void render(){		
+
+    public void render(){
 		int drawStart;
 		int drawEnd;
 		float cameraX = -2;
-		double rayPosX;
-		double rayPosY;
-	    double rayDirX;
-	    double rayDirY;
+		double rayPosX, rayPosY, rayDirX, rayDirY;
+        double floorXWall,floorYWall;
+        double distWall, distPlayer,currentDist;
+
 	    double wallX; //Where was the wall hit?
 
 	    float sideDistX;
@@ -43,6 +46,7 @@ public class Renderer extends ApplicationAdapter {
 		float deltaDistX;
 	    float deltaDistY;
 	    float perpWallDist;
+
 	    
 		for(int x=0; x<GameMain.screenWidth; x++ ){
 			 cameraX = 2 * x / (float)GameMain.screenWidth - 1;
@@ -121,16 +125,54 @@ public class Renderer extends ApplicationAdapter {
 	       
 	      //x coordinate on the texture
 	      int texX = (int)wallX * 64;
-	      if(side == 0 && rayDirX > 0) texX = 64 - texX - 1;
-	      if(side == 1 && rayDirY < 0) texX = 64 - texX - 1;
-	      System.out.println(wallX);
-	      //Add all values to the batch now
-	      xBatch.add(x);
-	      y1Batch.add(drawStart);
-	      y2Batch.add(drawEnd);
-	      lineHeightBatch.add(lineHeight);
-	      textureXBatch.add(wallX);
-	      selectTexture.add(MapChunk.map[mapX][mapY]);
+	      if(side == 0 && rayDirX > 0)
+              texX = 64 - texX - 1;
+	      if(side == 1 && rayDirY < 0)
+              texX = 64 - texX - 1;
+
+
+        if(side == 0 && rayDirX >0){
+            floorXWall = mapX;
+            floorYWall = mapY + wallX;
+        } else if(side == 0 && rayDirX < 0){
+            floorXWall = mapX +1;
+            floorYWall = mapY + wallX;
+        } else if(side == 1 && rayDirY > 0){
+            floorXWall = mapX + wallX;
+            floorYWall = mapY;
+        } else{
+            floorXWall = mapX + wallX;
+            floorYWall = mapY + 1;
+        }
+            distWall = perpWallDist;
+            distPlayer = 0;
+            int varEnd;
+            if((drawEnd+1)-GameMain.screenHeight <= 0)
+                varEnd = 1;
+            else
+                varEnd = (drawEnd+1)-GameMain.screenHeight;
+
+
+            currentDist = GameMain.screenHeight / varEnd;
+            double weight = (currentDist - distPlayer) / (distWall - distPlayer);
+
+            Float currentFloorX =(float) (weight*floorXWall + (1-weight) * posX);
+            Float currentFloorY =(float) (weight*floorYWall + (1-weight) * posY);
+
+            int floorTexX = (int) (currentFloorX*64)%64;
+            int floorTexY = (int) (currentFloorY*64)%64;
+
+
+
+            //Add all values to the batch now
+            xBatch.add(x);
+            y1Batch.add(drawStart);
+            y2Batch.add(drawEnd);
+            lineHeightBatch.add(lineHeight);
+            textureXBatch.add(wallX);
+            selectTexture.add(MapChunk.map[mapX][mapY]);
+            floorTextureXBatch.add(floorTexX);
+            floorTextureYBatch.add(floorTexY);
 	      
 		}
 	}
