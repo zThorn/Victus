@@ -1,12 +1,9 @@
 package com.TEAM_NAME.Fructus;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g3d.utils.FirstPersonCameraController;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.utils.IntIntMap;
-import com.sun.xml.internal.bind.annotation.OverrideAnnotationOf;
 
 /**
  * Created by zthorn on 3/3/2015.
