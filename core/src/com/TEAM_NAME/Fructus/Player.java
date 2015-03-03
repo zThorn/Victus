@@ -9,15 +9,15 @@ import com.badlogic.gdx.graphics.g3d.utils.FirstPersonCameraController;
  */
 public class Player {
     private PerspectiveCamera camera;
-    private FirstPersonCameraController fpcc ;
+    private FirstPersonCamera fpcc ;
     
     public Player(PerspectiveCamera c){
         camera = c;
-        fpcc = new FirstPersonCameraController(camera);
+        fpcc = new FirstPersonCamera(camera);
         fpcc.setVelocity(10f);
         //fpcc.setDegreesPerPixel(.5f);
         Gdx.input.setInputProcessor(fpcc);
-        //Gdx.input.setCursorCatched(true);
+        Gdx.input.setCursorCatched(true);
     }
     
     public void movePlayer(){
