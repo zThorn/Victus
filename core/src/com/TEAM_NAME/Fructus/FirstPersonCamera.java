@@ -23,10 +23,10 @@ public class FirstPersonCamera extends FirstPersonCameraController {
     @Override
     public boolean mouseMoved(int screenX, int screenY){
         float deltaX = -Gdx.input.getDeltaX() * degreesPerPixel;
-        float deltaY = -Gdx.input.getDeltaY() * degreesPerPixel;
+        //float deltaY = -Gdx.input.getDeltaY() * degreesPerPixel;
         camera.direction.rotate(camera.up, deltaX);
         tmp.set(camera.direction).crs(camera.up).nor();
-        camera.direction.rotate(tmp, deltaY);
+       // camera.direction.rotate(tmp, deltaY);
         return true;
     }
 }

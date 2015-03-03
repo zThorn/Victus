@@ -35,7 +35,6 @@ public class Renderer implements ApplicationListener {
 	Vector3 pos = new Vector3();
 	@Override
 	public void create() {
-		// TODO Auto-generated method stub
 		modelBatch = new ModelBatch();
 		camera = new PerspectiveCamera(67,Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         camera.position.set(20f,1f,100f);
@@ -45,14 +44,6 @@ public class Renderer implements ApplicationListener {
         camera.update();
         environment = new Environment();
         environment.set(new ColorAttribute(ColorAttribute.AmbientLight, 0.8f, 0.8f, 0.8f, 1.0f));
-         //wall = new Wall(10, 10, 10, 10);
-        /*ModelBuilder modelBuilder = new ModelBuilder();
- 		model = modelBuilder.createBox(5f, 5f, 1f, new Material(TextureAttribute.createDiffuse(Walls.redAppleTexture)),
- 				Usage.Position| Usage.Normal | Usage.TextureCoordinates);
-         instance = new ModelInstance(model);
-         instance.transform.setTranslation(new Vector3(10,0,0));
-         instance.calculateTransforms();*/
-         //instance.materials.get(0).set(TextureAttribute.createNormal(Walls.greenAppleTexture));
 		
 	}
 	@Override
@@ -62,8 +53,6 @@ public class Renderer implements ApplicationListener {
 	}
 	@Override
 	public void render() {
-		// TODO Auto-generated method stub
-		GL30 gl = Gdx.graphics.getGL30();
 		Gdx.gl20.glEnable(GL20.GL_TEXTURE_2D);
 		Gdx.gl20.glEnable(GL20.GL_BLEND);
 		Gdx.gl20.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
@@ -72,13 +61,13 @@ public class Renderer implements ApplicationListener {
 		Gdx.gl.glViewport(0,0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 		
-		Walls.greenAppleTexture.bind();
+		//Walls.greenAppleTexture.bind();
 		
 		for(ModelInstance ins: Walls.getWalls()){
 			if(isVisible(ins,camera)){
-			modelBatch.begin(camera);
-			modelBatch.render(ins,environment);
-			modelBatch.end();
+                modelBatch.begin(camera);
+                modelBatch.render(ins,environment);
+                modelBatch.end();
 			}
 		}
 		
