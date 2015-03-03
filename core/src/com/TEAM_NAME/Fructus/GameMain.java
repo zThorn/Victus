@@ -1,6 +1,7 @@
 package com.TEAM_NAME.Fructus;
 
 
+import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.FPSLogger;
@@ -11,60 +12,64 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.profiling.GLProfiler;
 
-public class GameMain extends Game{
+public class GameMain implements ApplicationListener{
 	SpriteBatch batch;
-	Texture img1;
-	Texture img2;
-	Texture img3;
-	Texture img4;
-    Texture img5;
+	
 
 	static int screenWidth = 800;
 	static int screenHeight = 600;
 	Renderer r;
-	ShapeRenderer shape;
 	Controls c;
 	FPSLogger log;
+	Player p;
 	BitmapFont font;
+	Walls w;
 	
 	@Override
 	public void create () {
-		batch = new SpriteBatch();
-		shape = new ShapeRenderer();
+		w = new Walls();
+		w.loadTextures();
+		w.generateWorld();
 		r = new Renderer();
-		c = new Controls();
-		log = new FPSLogger();
-		font = new BitmapFont();
-
-		Gdx.gl.glClearColor(.25f, .25f, .25f, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		//log = new FPSLogger();
+		//font = new BitmapFont();
+		r.create();
+		
+		p = new Player(r.getPerspectiveCamera());
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 		GLProfiler.enable();
-		
-		img1 = new Texture(Gdx.files.internal("game_textures/grapefruit.png"));
-		img2 = new Texture(Gdx.files.internal("game_textures/purple_grape.png"));
-		img3 = new Texture(Gdx.files.internal("game_textures/red_apple.png"));
-		img4 = new Texture(Gdx.files.internal("game_textures/strawberry.png"));
-        img5 = new Texture(Gdx.files.internal("game_textures/gross.png"));
 		Gdx.graphics.setVSync(false);
-		
-
 	}
 
 	@Override
 	public void render () {
-	    Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 	    //Renderer -> render
 		r.render();
+		p.movePlayer();
+		}
+
+	@Override
+	public void resize(int width, int height) {
+		// TODO Auto-generated method stub
 		
-		//Controls -> update
-		c.update();
+	}
+
+	@Override
+	public void pause() {
+		// TODO Auto-generated method stub
 		
-		//Draw
-		batch.begin();  
-			RendererUtil.renderDebug(font,batch);
-			GLProfiler.reset();
-			RendererUtil.drawTextures(batch,img1,img2,img3,img4, img5);
-		batch.end();
-		}		
+	}
+
+	@Override
+	public void resume() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void dispose() {
+		// TODO Auto-generated method stub
+		
+	}		
 }

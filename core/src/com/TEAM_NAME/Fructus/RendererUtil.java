@@ -4,11 +4,14 @@ import java.util.Iterator;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.profiling.GLProfiler;
+
+import javax.xml.soap.Text;
 
 public class RendererUtil {
 	
@@ -17,50 +20,10 @@ public class RendererUtil {
 			shape.setColor(color);
 			shape.line(x,y1,x,y2);
 	}
-	
-	public static void drawTextures(SpriteBatch batch, Texture img1, Texture img2, Texture img3, Texture img4, Texture img5){
-		Iterator<Integer> xIt = Renderer.xBatch.iterator();
-		Iterator<Integer> y1It = Renderer.y1Batch.iterator();
-		Iterator<Integer> y2It = Renderer.y2Batch.iterator();
-		Iterator<Double> textureXBatch = Renderer.textureXBatch.iterator();
-		Iterator<Integer> selectedTile = Renderer.selectTexture.iterator();
-        Iterator<Integer> floorXBatch = Renderer.floorTextureXBatch.iterator();
-        Iterator<Integer> floorYBatch = Renderer.floorTextureYBatch.iterator();
 
-        int textX = 1;
-
-		while(y2It.hasNext()){
-			int tempY = y2It.next();
-			int tempY1 = y1It.next();
-            int tempX = xIt.next();
-			int tileNumber = selectedTile.next();
-			float height = tempY1 - tempY;
-	        //batch.draw(texture, (float)left, (float)wall.top, (float)width, (float)wall.height, (int)textureX, 0, 1, texture.getHeight(), false, true);
-			if(tileNumber == 1){
-	        batch.draw(img1, (float) tempX, (float) tempY, 3.2f, height, textX, 0, 1, 64, false, true);
-			} else if(tileNumber == 2) {
-		       batch.draw(img2, (float)tempX, (float)tempY, 3.2f,height, textX, 0, 1,64, false, true);
-			} else if(tileNumber == 3){
-			   batch.draw(img3, (float)tempX, (float)tempY, 3.2f,height, textX, 0, 1,64, false, true);
-			} else if(tileNumber == 4){
-			   batch.draw(img4, (float)tempX, (float)tempY, 3.2f,height, textX, 0, 1,64, false, true);
-			}
-
-            batch.draw(img5, (float)tempX, tempY, 3.2f,GameMain.screenHeight-height, textX, 0, 0,64, false, true);
-            if(textX == 64){
-                textX=0;
-            } else{
-                textX= (int)((64*textureXBatch.next()));
-            }
-	        
-		}
-		Renderer.xBatch.clear();
-		Renderer.y1Batch.clear();
-		Renderer.y2Batch.clear();
-        Renderer.lineHeightBatch.clear();
-		Renderer.selectTexture.clear();
-		Renderer.textureXBatch.clear();
-	}
+    public static int convertNormalToDegrees(double x, double y){
+        return (int)((Math.atan2(y,x)*180/Math.PI)+180);
+    }
 	
 	public static void renderDebug(BitmapFont font, SpriteBatch batch){
 		font.draw(batch, "fps: " + Gdx.graphics.getFramesPerSecond(), 20, 30);   

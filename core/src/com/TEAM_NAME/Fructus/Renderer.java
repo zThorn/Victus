@@ -3,178 +3,109 @@ package com.TEAM_NAME.Fructus;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.ApplicationListener;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.GL30;
+import com.badlogic.gdx.graphics.PerspectiveCamera;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.VertexAttributes.Usage;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g3d.Environment;
+import com.badlogic.gdx.graphics.g3d.Material;
+import com.badlogic.gdx.graphics.g3d.Model;
+import com.badlogic.gdx.graphics.g3d.ModelBatch;
+import com.badlogic.gdx.graphics.g3d.ModelInstance;
+import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
+import com.badlogic.gdx.graphics.g3d.attributes.TextureAttribute;
+import com.badlogic.gdx.graphics.g3d.utils.ModelBuilder;
+import com.badlogic.gdx.math.Vector3;
 
-public class Renderer extends ApplicationAdapter {
-	
-	static double posX = 22;
-	static double posY = 20;
-	static double dirX = -1;
-	static double dirY = 0;
-	static double planeX = 0;
-	static double planeY = .67f;
-	
-	static ArrayList<Integer> xBatch = new ArrayList<Integer>();
-	static ArrayList<Integer> y1Batch = new ArrayList<Integer>();
-	static ArrayList<Integer> y2Batch = new ArrayList<Integer>();
-	static ArrayList<Integer> lineHeightBatch = new ArrayList<Integer>();
-	static ArrayList<Double> textureXBatch = new ArrayList<Double>();
-	static ArrayList<Integer> selectTexture = new ArrayList<Integer>();
-    static ArrayList<Integer> floorTextureXBatch = new ArrayList<Integer>();
-    static ArrayList<Integer> floorTextureYBatch = new ArrayList<Integer>();
-
-
-    public void render(){
-		int drawStart;
-		int drawEnd;
-		float cameraX = -2;
-		double rayPosX, rayPosY, rayDirX, rayDirY;
-        double floorXWall,floorYWall;
-        double distWall, distPlayer,currentDist;
-
-	    double wallX; //Where was the wall hit?
-
-	    float sideDistX;
-	    float sideDistY;
-		int mapX;
-		int mapY;
+public class Renderer implements ApplicationListener {
+	ModelBatch modelBatch;
+	SpriteBatch batch;
+	ModelInstance instance;
+	PerspectiveCamera camera;
+	Wall wall;
+	Model model;
+	Environment environment;
+	Vector3 pos = new Vector3();
+	@Override
+	public void create() {
+		// TODO Auto-generated method stub
+		modelBatch = new ModelBatch();
+		camera = new PerspectiveCamera(67,Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        camera.position.set(20f,1f,100f);
+        camera.lookAt(0,0,0);
+        camera.near = 1f;
+        camera.far = 300f;
+        camera.update();
+        environment = new Environment();
+        environment.set(new ColorAttribute(ColorAttribute.AmbientLight, 0.8f, 0.8f, 0.8f, 1.0f));
+         //wall = new Wall(10, 10, 10, 10);
+        /*ModelBuilder modelBuilder = new ModelBuilder();
+ 		model = modelBuilder.createBox(5f, 5f, 1f, new Material(TextureAttribute.createDiffuse(Walls.redAppleTexture)),
+ 				Usage.Position| Usage.Normal | Usage.TextureCoordinates);
+         instance = new ModelInstance(model);
+         instance.transform.setTranslation(new Vector3(10,0,0));
+         instance.calculateTransforms();*/
+         //instance.materials.get(0).set(TextureAttribute.createNormal(Walls.greenAppleTexture));
 		
-	    int stepX;
-	    int stepY;
-
-	    boolean hit; 
-		int side = 0;
-		float deltaDistX;
-	    float deltaDistY;
-	    float perpWallDist;
-
-	    
-		for(int x=0; x<GameMain.screenWidth; x++ ){
-			 cameraX = 2 * x / (float)GameMain.screenWidth - 1;
-			 rayPosX = posX;
-			 rayPosY = posY;
-		     rayDirX = dirX + planeX * cameraX;
-		     rayDirY = dirY + planeY * cameraX;
-		     
-		     //Map Coordinates
-	         mapX = (int)rayPosX;
-	         mapY = (int)rayPosY;
-	
-	         //Rays that represent distance between next x or y
-	         deltaDistX = (float) Math.sqrt(1+ (rayDirY * rayDirY) / (rayDirX * rayDirX));
-	         deltaDistY = (float) Math.sqrt(1+ (rayDirX * rayDirX) / (rayDirY * rayDirY));
-
-	         hit = false; 
-	      
-		      if (rayDirX < 0){
-		        stepX = -1;
-		        sideDistX = (float) ((rayPosX - mapX) * deltaDistX);
-		      }
-		      else{
-		        stepX = 1;
-		        sideDistX = (float) ((mapX + 1f - rayPosX) * deltaDistX);
-		      }
-		      if (rayDirY < 0){
-		        stepY = -1;
-		        sideDistY = (float) ((rayPosY - mapY) * deltaDistY);
-		      }
-		      else{
-		        stepY = 1;
-		        sideDistY = (float) ((mapY + 1f - rayPosY) * deltaDistY);
-		      }
-	      
-	      while (!hit){
-	        if (sideDistX < sideDistY){
-	          sideDistX += deltaDistX;
-	          mapX += stepX;
-	          side = 0;
-	        }
-	        else{
-	          sideDistY += deltaDistY;
-	          mapY += stepY;
-	          side = 1;
-	        	
-	        }
-	        //Check if the ray has hit a wall
-	        if (MapChunk.map[mapX][mapY] > 0) 
-	        	hit = true;
-	      } 
-		
-	      if (side == 0)
-	    	  perpWallDist = (float) Math.abs((mapX - rayPosX + (1 - stepX) / 2) / rayDirX);
-	      else
-	    	  perpWallDist = (float) Math.abs((mapY - rayPosY + (1 - stepY) / 2) / rayDirY);
-	      
-	      //Calculates the height of the line to draw on screen
-	      int lineHeight = (int) Math.abs((int)GameMain.screenHeight / perpWallDist);
-	      
-	       
-	      //calculates the start and end pixel to fill in current render stripe
-	      drawStart = -lineHeight / 2 + GameMain.screenHeight / 2;
-	      
-	      if(drawStart < 0)drawStart = 0;
-	      	drawEnd = lineHeight / 2 + GameMain.screenHeight / 2;
-	      	
-	      if(drawEnd >= GameMain.screenHeight)
-	    	drawEnd = GameMain.screenHeight - 1;
-	      
-	      if (side == 1)
-              wallX = (rayPosX + ((mapY - rayPosY + (1 - stepY) / 2) / rayDirY) * rayDirX);
-	      else
-              wallX = (rayPosY + ((mapX - rayPosX + (1 - stepX) / 2) / rayDirX) * rayDirY);
-	      wallX -= Math.floor(wallX);
-	       
-	      //x coordinate on the texture
-	      int texX = (int)wallX * 64;
-	      if(side == 0 && rayDirX > 0)
-              texX = 64 - texX - 1;
-	      if(side == 1 && rayDirY < 0)
-              texX = 64 - texX - 1;
-
-
-        if(side == 0 && rayDirX >0){
-            floorXWall = mapX;
-            floorYWall = mapY + wallX;
-        } else if(side == 0 && rayDirX < 0){
-            floorXWall = mapX +1;
-            floorYWall = mapY + wallX;
-        } else if(side == 1 && rayDirY > 0){
-            floorXWall = mapX + wallX;
-            floorYWall = mapY;
-        } else{
-            floorXWall = mapX + wallX;
-            floorYWall = mapY + 1;
-        }
-            distWall = perpWallDist;
-            distPlayer = 0;
-            int varEnd;
-            if((drawEnd+1)-GameMain.screenHeight <= 0)
-                varEnd = 1;
-            else
-                varEnd = (drawEnd+1)-GameMain.screenHeight;
-
-
-            currentDist = GameMain.screenHeight / varEnd;
-            double weight = (currentDist - distPlayer) / (distWall - distPlayer);
-
-            Float currentFloorX =(float) (weight*floorXWall + (1-weight) * posX);
-            Float currentFloorY =(float) (weight*floorYWall + (1-weight) * posY);
-
-            int floorTexX = (int) (currentFloorX*64)%64;
-            int floorTexY = (int) (currentFloorY*64)%64;
-
-
-
-            //Add all values to the batch now
-            xBatch.add(x);
-            y1Batch.add(drawStart);
-            y2Batch.add(drawEnd);
-            lineHeightBatch.add(lineHeight);
-            textureXBatch.add(wallX);
-            selectTexture.add(MapChunk.map[mapX][mapY]);
-            floorTextureXBatch.add(floorTexX);
-            floorTextureYBatch.add(floorTexY);
-	      
-		}
 	}
-}
+	@Override
+	public void resize(int width, int height) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void render() {
+		// TODO Auto-generated method stub
+		GL30 gl = Gdx.graphics.getGL30();
+		Gdx.gl20.glEnable(GL20.GL_TEXTURE_2D);
+		Gdx.gl20.glEnable(GL20.GL_BLEND);
+		Gdx.gl20.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+		Gdx.gl20.glCullFace(GL20.GL_NONE);
+		Gdx.gl20.glEnable(GL20.GL_DEPTH_TEST);
+		Gdx.gl.glViewport(0,0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
+		
+		Walls.greenAppleTexture.bind();
+		
+		for(ModelInstance ins: Walls.getWalls()){
+			if(isVisible(ins,camera)){
+			modelBatch.begin(camera);
+			modelBatch.render(ins,environment);
+			modelBatch.end();
+			}
+		}
+		
+	}
+	
+	public PerspectiveCamera getPerspectiveCamera(){
+		return this.camera;
+	}
+	public boolean isVisible(ModelInstance i, Camera c){
+		i.transform.getTranslation(pos);
+	    return c.frustum.pointInFrustum(pos);
+		
+	}
+	@Override
+	public void pause() {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void resume() {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void dispose() {
+		// TODO Auto-generated method stub
+		
+	}
+	}
 

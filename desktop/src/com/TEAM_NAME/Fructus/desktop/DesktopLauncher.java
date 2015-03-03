@@ -13,7 +13,6 @@ public class DesktopLauncher {
 		config.height = screenHeight;
 		config.width = screenWidth;
 		config.vSyncEnabled = false;
-		config.useGL30 = false;
 		new LwjglApplication((ApplicationListener) new GameMain(), config);
 		
 	}
