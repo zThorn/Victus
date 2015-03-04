@@ -25,9 +25,9 @@ public class Walls {
     static Texture groundTexture;
 	ModelBatch modelBatch;
 	Model model;
-	ModelInstance instance;
+	GameObject instance;
 
-    private static Array<ModelInstance> walls = new Array<ModelInstance>();
+    private static Array<GameObject> walls = new Array<GameObject>();
     
     
     
@@ -39,7 +39,7 @@ public class Walls {
         groundTexture = new Texture(Gdx.files.internal("game_textures/wood.png"));
     }
     
-    public static Array<ModelInstance> getWalls(){ return walls;}
+    public static Array<GameObject> getWalls(){ return walls;}
 
     public void generateWorld(){
     	 ModelBuilder modelBuilder = new ModelBuilder();
@@ -51,7 +51,7 @@ public class Walls {
 	    			case 1:
 	    				model = modelBuilder.createBox(1f, 2f, 1f, new Material(TextureAttribute.createDiffuse(Walls.raspberryTexture)),
 	    		  				Usage.Position| Usage.Normal | Usage.TextureCoordinates);
-	    		         instance = new ModelInstance(model);
+	    		         instance = new GameObject(model);
 	    		         instance.transform.setTranslation(new Vector3(x,0,y));
 	    		         instance.calculateTransforms();
 	    		         walls.add(instance);
@@ -59,7 +59,7 @@ public class Walls {
 	    			case 2:
 	    				model = modelBuilder.createBox(1f, 2f, 1f, new Material(TextureAttribute.createDiffuse(Walls.watermelonTexture)),
 	    		  				Usage.Position| Usage.Normal | Usage.TextureCoordinates);
-	    		         instance = new ModelInstance(model);
+	    		         instance = new GameObject(model);
 	    		         instance.transform.setTranslation(new Vector3(x,0,y));
 	    		         instance.calculateTransforms();
 	    		         walls.add(instance);

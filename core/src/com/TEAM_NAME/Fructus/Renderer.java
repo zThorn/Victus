@@ -64,12 +64,12 @@ public class Renderer implements ApplicationListener {
 		
 		//Walls.greenAppleTexture.bind();
 		
-		for(ModelInstance ins: Walls.getWalls()){
-			//if(isVisible(ins,camera)){
+		for(GameObject ins: Walls.getWalls()){
+			if(isVisible(ins,camera)){
                 modelBatch.begin(camera);
                 modelBatch.render(ins,environment);
                 modelBatch.end();
-			//}
+			}
 		}
 		
 	}
@@ -77,9 +77,10 @@ public class Renderer implements ApplicationListener {
 	public PerspectiveCamera getPerspectiveCamera(){
 		return this.camera;
 	}
-	public boolean isVisible(ModelInstance i, Camera c){
-		i.transform.getTranslation(pos).sub(new Vector3(.5f,.5f,.5f));
-	    return c.frustum.pointInFrustum(pos);
+	public boolean isVisible(GameObject i, Camera c){
+		 	i.transform.getTranslation(pos);
+		    pos.add(i.center);
+		    return c.frustum.sphereInFrustum(pos, i.radius);
 		
 	}
 	@Override
