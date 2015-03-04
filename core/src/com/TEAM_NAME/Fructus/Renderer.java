@@ -65,11 +65,11 @@ public class Renderer implements ApplicationListener {
 		//Walls.greenAppleTexture.bind();
 		
 		for(ModelInstance ins: Walls.getWalls()){
-			if(isVisible(ins,camera)){
+			//if(isVisible(ins,camera)){
                 modelBatch.begin(camera);
                 modelBatch.render(ins,environment);
                 modelBatch.end();
-			}
+			//}
 		}
 		
 	}

@@ -49,7 +49,7 @@ public class Walls {
     			
     			switch(MapChunk.map[x][y]){
 	    			case 1:
-	    				model = modelBuilder.createBox(1f, 4f, 1f, new Material(TextureAttribute.createDiffuse(Walls.raspberryTexture)),
+	    				model = modelBuilder.createBox(1f, 2f, 1f, new Material(TextureAttribute.createDiffuse(Walls.raspberryTexture)),
 	    		  				Usage.Position| Usage.Normal | Usage.TextureCoordinates);
 	    		         instance = new ModelInstance(model);
 	    		         instance.transform.setTranslation(new Vector3(x,0,y));
@@ -57,7 +57,7 @@ public class Walls {
 	    		         walls.add(instance);
 	    				break;
 	    			case 2:
-	    				model = modelBuilder.createBox(1f, 4f, 1f, new Material(TextureAttribute.createDiffuse(Walls.watermelonTexture)),
+	    				model = modelBuilder.createBox(1f, 2f, 1f, new Material(TextureAttribute.createDiffuse(Walls.watermelonTexture)),
 	    		  				Usage.Position| Usage.Normal | Usage.TextureCoordinates);
 	    		         instance = new ModelInstance(model);
 	    		         instance.transform.setTranslation(new Vector3(x,0,y));
