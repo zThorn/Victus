@@ -11,7 +11,7 @@ import com.badlogic.gdx.math.Vector3;
 public class FirstPersonCamera extends FirstPersonCameraController {
     private Camera camera;
     private float velocity = 5;
-    private float degreesPerPixel = 0.5f;
+    private float degreesPerPixel = 0.15f;
     private final Vector3 tmp = new Vector3();
     public FirstPersonCamera(Camera camera){
         super(camera);
@@ -24,6 +24,16 @@ public class FirstPersonCamera extends FirstPersonCameraController {
         camera.direction.rotate(camera.up, deltaX);
         tmp.set(camera.direction).crs(camera.up).nor();
        // camera.direction.rotate(tmp, deltaY);
+        return true;
+    }
+
+    @Override
+    public boolean touchDragged(int screenX, int screenY, int pointer){
+        float deltaX = -Gdx.input.getDeltaX() * degreesPerPixel;
+        //float deltaY = -Gdx.input.getDeltaY() * degreesPerPixel;
+        camera.direction.rotate(camera.up, deltaX);
+        tmp.set(camera.direction).crs(camera.up).nor();
+        // camera.direction.rotate(tmp, deltaY);
         return true;
     }
 }

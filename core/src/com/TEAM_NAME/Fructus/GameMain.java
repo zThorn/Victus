@@ -23,6 +23,7 @@ public class GameMain implements ApplicationListener{
 	FPSLogger log;
 	Player p;
 	BitmapFont font;
+    Floor floor;
 	Walls w;
 	
 	@Override
@@ -31,12 +32,15 @@ public class GameMain implements ApplicationListener{
 		w.loadTextures();
 		w.generateWorld();
 		r = new Renderer();
-		//log = new FPSLogger();
-		//font = new BitmapFont();
+		log = new FPSLogger();
+		font = new BitmapFont();
+        batch = new SpriteBatch();
 		r.create();
-		
-		p = new Player(r.getPerspectiveCamera());
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
+        floor = new Floor(r.getPerspectiveCamera());
+
+        p = new Player(r.getPerspectiveCamera());
+
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 		GLProfiler.enable();
 		Gdx.graphics.setVSync(false);
 	}
@@ -47,7 +51,12 @@ public class GameMain implements ApplicationListener{
 	    //Renderer -> render
 		r.render();
 		p.movePlayer();
-		}
+        floor.render();
+        batch.begin();
+            RendererUtil.renderDebug(font, batch);
+            GLProfiler.reset();
+        batch.end();
+    }
 
 	@Override
 	public void resize(int width, int height) {

@@ -15,7 +15,7 @@ public class Player {
         camera = c;
         fpcc = new FirstPersonCamera(camera);
         fpcc.setVelocity(10f);
-        //fpcc.setDegreesPerPixel(.5f);
+        fpcc.setDegreesPerPixel(100f);
         Gdx.input.setInputProcessor(fpcc);
         Gdx.input.setCursorCatched(true);
     }

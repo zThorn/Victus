@@ -36,15 +36,16 @@ public class Renderer implements ApplicationListener {
 	@Override
 	public void create() {
 		modelBatch = new ModelBatch();
-		camera = new PerspectiveCamera(67,Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        camera.position.set(20f,1f,100f);
+		camera = new PerspectiveCamera(45,Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        camera.position.set(20f,0f,100f);
         camera.lookAt(0,0,0);
         camera.near = 1f;
         camera.far = 300f;
         camera.update();
         environment = new Environment();
         environment.set(new ColorAttribute(ColorAttribute.AmbientLight, 0.8f, 0.8f, 0.8f, 1.0f));
-		
+
+
 	}
 	@Override
 	public void resize(int width, int height) {
@@ -77,7 +78,7 @@ public class Renderer implements ApplicationListener {
 		return this.camera;
 	}
 	public boolean isVisible(ModelInstance i, Camera c){
-		i.transform.getTranslation(pos);
+		i.transform.getTranslation(pos).sub(new Vector3(.5f,.5f,.5f));
 	    return c.frustum.pointInFrustum(pos);
 		
 	}
