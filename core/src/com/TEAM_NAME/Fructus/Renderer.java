@@ -21,6 +21,7 @@ import com.badlogic.gdx.graphics.g3d.ModelBatch;
 import com.badlogic.gdx.graphics.g3d.ModelInstance;
 import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
 import com.badlogic.gdx.graphics.g3d.attributes.TextureAttribute;
+import com.badlogic.gdx.graphics.g3d.environment.DirectionalLight;
 import com.badlogic.gdx.graphics.g3d.utils.ModelBuilder;
 import com.badlogic.gdx.math.Vector3;
 
@@ -31,7 +32,7 @@ public class Renderer implements ApplicationListener {
 	PerspectiveCamera camera;
 	Wall wall;
 	Model model;
-	Environment environment;
+	static Environment environment;
 	Vector3 pos = new Vector3();
 	@Override
 	public void create() {
@@ -43,14 +44,17 @@ public class Renderer implements ApplicationListener {
         camera.far = 300f;
         camera.update();
         environment = new Environment();
-        environment.set(new ColorAttribute(ColorAttribute.AmbientLight, 0.8f, 0.8f, 0.8f, 1.0f));
-
+        environment.set(new ColorAttribute(ColorAttribute.AmbientLight, 0.2f, 0.2f, 0.2f, 1.0f));
 
 	}
 	@Override
 	public void resize(int width, int height) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public static Environment getEnvironment(){
+		return environment;
 	}
 	@Override
 	public void render() {
