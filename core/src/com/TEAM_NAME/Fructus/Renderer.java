@@ -56,8 +56,9 @@ public class Renderer implements ApplicationListener {
 	public void render() {
 		Gdx.gl20.glEnable(GL20.GL_TEXTURE_2D);
 		Gdx.gl20.glEnable(GL20.GL_BLEND);
+		
 		Gdx.gl20.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
-		Gdx.gl20.glCullFace(GL20.GL_NONE);
+		Gdx.gl20.glCullFace(GL20.GL_BACK);
 		Gdx.gl20.glEnable(GL20.GL_DEPTH_TEST);
 		Gdx.gl.glViewport(0,0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);

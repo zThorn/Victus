@@ -23,7 +23,7 @@ public class GameMain implements ApplicationListener{
 	FPSLogger log;
 	Player p;
 	BitmapFont font;
-    Floor floor;
+    Plane floor;
 	Walls w;
 	
 	@Override
@@ -36,7 +36,7 @@ public class GameMain implements ApplicationListener{
 		font = new BitmapFont();
         batch = new SpriteBatch();
 		r.create();
-        floor = new Floor(r.getPerspectiveCamera());
+        floor = new Plane(r.getPerspectiveCamera());
 
         p = new Player(r.getPerspectiveCamera());
 

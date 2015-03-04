@@ -13,12 +13,12 @@ import com.badlogic.gdx.utils.Array;
 /**
  * Created by zthorn on 3/3/2015.
  */
-public class Floor {
+public class Plane {
     private Array<Decal> floorDecal = new Array<Decal>();
     private Array<Decal> ceilDecal = new Array<Decal>();
 
     private DecalBatch decalBatch;
-    public Floor(Camera camera){
+    public Plane(Camera camera){
         decalBatch = new DecalBatch(new CameraGroupStrategy(camera));
         Decal decaltmp;
         decaltmp = Decal.newDecal(75,75,new TextureRegion(new Texture(Gdx.files.internal("game_textures/test.png"))));
