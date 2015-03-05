@@ -25,9 +25,11 @@ public class GameMain implements ApplicationListener{
 	BitmapFont font;
     Plane floor;
 	Walls w;
+	MapChunk m;
 	
 	@Override
 	public void create () {
+		m.makeMap();
 		w = new Walls();
 		w.loadTextures();
 		w.generateWorld();
@@ -39,7 +41,7 @@ public class GameMain implements ApplicationListener{
         floor = new Plane(r.getPerspectiveCamera());
 
         p = new Player(r.getPerspectiveCamera());
-
+        
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 		GLProfiler.enable();
 		Gdx.graphics.setVSync(false);

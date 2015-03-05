@@ -34,6 +34,7 @@ public class Renderer implements ApplicationListener {
 	Model model;
 	static Environment environment;
 	Vector3 pos = new Vector3();
+	
 	@Override
 	public void create() {
 		modelBatch = new ModelBatch();
@@ -45,7 +46,6 @@ public class Renderer implements ApplicationListener {
         camera.update();
         environment = new Environment();
         environment.set(new ColorAttribute(ColorAttribute.AmbientLight, 0.2f, 0.2f, 0.2f, 1.0f));
-
 	}
 	@Override
 	public void resize(int width, int height) {

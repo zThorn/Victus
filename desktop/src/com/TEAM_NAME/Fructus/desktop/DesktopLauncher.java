@@ -14,7 +14,6 @@ public class DesktopLauncher {
 		config.width = screenWidth;
 		config.vSyncEnabled = false;
 		new LwjglApplication((ApplicationListener) new GameMain(), config);
-		
 	}
 }
 
