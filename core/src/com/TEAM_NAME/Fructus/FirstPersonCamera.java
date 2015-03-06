@@ -23,7 +23,7 @@ public class FirstPersonCamera  extends InputAdapter {
     public static boolean hasMoved = true;
     private int SAVE = Input.Keys.K;
     private int LOAD = Input.Keys.L;
-    private float velocity = 5;
+    private float velocity = 2.5f;
     private float degreesPerPixel = 0.5f;
     private final Vector3 tmp = new Vector3();
     public FirstPersonCamera(Camera camera){
@@ -78,7 +78,6 @@ public class FirstPersonCamera  extends InputAdapter {
 
                 tmp.set(camera.direction).nor().scl(deltaTime * velocity);
                 camera.position.add(tmp);
-
             }
         }
         if (keys.containsKey(BACKWARD)) {

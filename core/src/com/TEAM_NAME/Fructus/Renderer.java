@@ -33,7 +33,10 @@ public class Renderer implements ApplicationListener {
 	public void create() {
 		modelBatch = new ModelBatch();
 		camera = new PerspectiveCamera(67,Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
-        camera.position.set(20f, 0f, 20f);
+        while(MapChunk.map[(int)camera.position.x] [(int)camera.position.z] != 0)
+            camera.position.set((float)Math.random()*50, 0f, (float)Math.random()*50);
+
+
         camera.lookAt(0,0,0);
         camera.near = .5f;
         camera.far = 25f;
