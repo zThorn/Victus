@@ -16,6 +16,7 @@ import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
 
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.physics.bullet.collision.*;
 
 public class Renderer implements ApplicationListener {
 	ModelBatch modelBatch;
@@ -25,12 +26,12 @@ public class Renderer implements ApplicationListener {
 	Model model;
 	static Environment environment;
 	Vector3 pos = new Vector3();
-	
+    boolean collision = false;
 	@Override
 	public void create() {
 		modelBatch = new ModelBatch();
-		camera = new PerspectiveCamera(45,Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        camera.position.set(0f,0f,0f);
+		camera = new PerspectiveCamera(50,Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
+        camera.position.set(2f,0f,20f);
         camera.lookAt(0,0,0);
         camera.near = 1f;
         camera.far = 300f;
@@ -58,21 +59,11 @@ public class Renderer implements ApplicationListener {
 		Gdx.gl.glViewport(0,0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
 		Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT | GL30.GL_DEPTH_BUFFER_BIT);
 		
-		//Walls.greenAppleTexture.bind();
         modelBatch.begin(camera);
 
         for(GameObject ins: Walls.getWalls()) {
             if (isVisible(ins, camera)) {
                 modelBatch.render(ins, environment);
-
-            }
-            if(Player.bounds.intersects(ins.getBoundingBox()) ) {
-                Player.colliding = true;
-                System.out.println("Collided with: "+ins.bounds+ "Player position: "+Player.bounds);
-                Player.moveBack();
-            } else {
-                Player.colliding = false;
-                //System.out.println(ins.getBoundingBox().min);
             }
         }
         modelBatch.end();
@@ -100,8 +91,7 @@ public class Renderer implements ApplicationListener {
 	}
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
-		
+
 	}
 	}
 

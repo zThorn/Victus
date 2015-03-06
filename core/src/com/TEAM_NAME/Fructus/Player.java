@@ -20,19 +20,14 @@ public class Player extends GameObject {
     private FirstPersonCamera fpcc ;
     private DirectionalLight dirLight;
     public static boolean colliding = false;
-    public static Vector3 movementAmt;
 
-    protected static BoundingBox bounds;
 
     public Player(Model model){
         super(model);
-        bounds = new BoundingBox();
-        calculateBoundingBox(bounds);
-        bounds.getCenter(center);
-        bounds.getDimensions(dimensions);
-        bounds.set(new Vector3(0f,0f,0f), new Vector3(2f,1f,1f));
+
 
     }
+
     public void setupCamera(PerspectiveCamera c){
         camera = c;
         fpcc = new FirstPersonCamera(camera);
@@ -43,28 +38,14 @@ public class Player extends GameObject {
     
     public void movePlayer(){
         fpcc.update();
+        dirLight.set(250, 235, 125, camera.direction);
 
-        if(colliding){
-           // camera.position.sub(FirstPersonCamera.tmp);
-            //
+       // System.out.println(this.transform);
 
-        }
-        if(FirstPersonCamera.hasMoved) {
-            System.out.println("PLAYER: "+bounds);
-
-            dirLight.set(250, 235, 125, camera.direction);
-            FirstPersonCamera.tmp.y = 0;
-            bounds.set(bounds.min.add(FirstPersonCamera.tmp),bounds.max.add(FirstPersonCamera.tmp));
-
-        }
 
     }
 
-    public static void moveBack(){
-        camera.position.sub(FirstPersonCamera.tmp);
-        bounds.set(bounds.min.sub(FirstPersonCamera.tmp),bounds.max.sub(FirstPersonCamera.tmp));
 
-    }
     public PerspectiveCamera getCamera(){return this.camera;}
 
 

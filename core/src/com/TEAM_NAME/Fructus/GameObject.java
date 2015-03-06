@@ -7,16 +7,16 @@ import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.BoundingBox;
 import com.badlogic.gdx.math.collision.Ray;
-import com.badlogic.gdx.physics.bullet.collision.btBoxShape;
-import com.badlogic.gdx.physics.bullet.collision.btCollisionObject;
-import com.badlogic.gdx.physics.bullet.collision.btCollisionShape;
+import com.badlogic.gdx.physics.bullet.collision.*;
 
 public class GameObject extends ModelInstance {
 	public final Vector3 center = new Vector3();
     public final Vector3 dimensions = new Vector3();
     public final float radius;
     private final static Vector3 position = new Vector3();
+
     public BoundingBox bounds;
+
 
 	public GameObject(Model model) {
 		super(model);
@@ -26,7 +26,9 @@ public class GameObject extends ModelInstance {
 		bounds.getDimensions(dimensions);
 		radius = dimensions.len() / 2f;
 
+
 	}
+
     public  BoundingBox getBoundingBox(){return bounds;}
 
     public float intersects(Matrix4 transform, Ray ray) {

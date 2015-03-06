@@ -2,8 +2,8 @@ package com.TEAM_NAME.Fructus;
 
 public class MapChunk {
 	//Size of map
-		public static final int mapWidth = 60;
-		public static final int mapHeight = 60;
+		public static final int mapWidth = 100;
+		public static final int mapHeight = 100;
 
 		//Map of stage
 		public static int[][] map = new int[mapWidth][mapHeight];

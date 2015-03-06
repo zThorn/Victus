@@ -18,6 +18,10 @@ import com.badlogic.gdx.graphics.profiling.GLProfiler;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.bullet.Bullet;
 import com.badlogic.gdx.physics.bullet.DebugDrawer;
+import com.badlogic.gdx.physics.bullet.collision.btCollisionConfiguration;
+import com.badlogic.gdx.physics.bullet.collision.btCollisionDispatcher;
+import com.badlogic.gdx.physics.bullet.collision.btDefaultCollisionConfiguration;
+import com.badlogic.gdx.physics.bullet.collision.btDispatcher;
 import com.badlogic.gdx.physics.bullet.linearmath.btIDebugDraw;
 
 public class GameMain implements ApplicationListener{
@@ -40,6 +44,8 @@ public class GameMain implements ApplicationListener{
 
     @Override
 	public void create () {
+        Bullet.init();
+
 		m.makeMap();
 
 		w = new Walls();
@@ -52,6 +58,8 @@ public class GameMain implements ApplicationListener{
         batch = new SpriteBatch();
 		r.create();
         floor = new Plane(r.getPerspectiveCamera());
+
+
 
         p = new Player(modelBuilder.createBox(1f,1f,1f,new Material(TextureAttribute.createDiffuse(Walls.greenAppleTexture)),
                 VertexAttributes.Usage.Position| VertexAttributes.Usage.Normal | VertexAttributes.Usage.TextureCoordinates));
@@ -96,7 +104,8 @@ public class GameMain implements ApplicationListener{
 
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
+
+
 		
 	}		
 }

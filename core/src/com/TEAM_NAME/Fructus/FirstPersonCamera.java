@@ -3,6 +3,7 @@ package com.TEAM_NAME.Fructus;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.g3d.utils.FirstPersonCameraController;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.math.Vector3;
@@ -19,9 +20,9 @@ public class FirstPersonCamera  extends InputAdapter {
     private int STRAFE_RIGHT = Input.Keys.D;
     private int FORWARD = Input.Keys.W;
     private int BACKWARD = Input.Keys.S;
-    private int UP = Input.Keys.Q;
-    private int DOWN = Input.Keys.E;
-    private float velocity = 5;
+    private int LOAD = Input.Keys.L;
+    private int SAVE = Input.Keys.K;
+    private float velocity = 2;
     private float degreesPerPixel = 0.15f;
 
     public static boolean hasMoved = true;
@@ -70,40 +71,53 @@ public class FirstPersonCamera  extends InputAdapter {
         tmp.set(Vector3.Zero);
 
         if (keys.containsKey(FORWARD)) {
-            tmp.set(camera.direction).nor().scl(deltaTime * velocity);
-            currentDirection = FORWARD;
-            if(Player.colliding && currentDirection != FORWARD || !Player.colliding)
+            if(MapChunk.map[(int)Math.floor(camera.position.x+camera.direction.x*velocity)][(int)Math.floor(camera.position.z)] == 0) {
+                tmp.set(camera.direction).nor().scl(deltaTime * velocity);
                 camera.position.add(tmp);
-            hasMoved = true;
+
+            }
         }
         if (keys.containsKey(BACKWARD)) {
-            tmp.set(camera.direction).nor().scl(-deltaTime * velocity);
-            if(Player.colliding && currentDirection != BACKWARD || !Player.colliding)
+            if (MapChunk.map[(int) Math.floor(camera.position.x-camera.direction.x*velocity)][Math.round(camera.position.z)] == 0) {
+                tmp.set(camera.direction).nor().scl(-deltaTime * velocity);
                 camera.position.add(tmp);
-
-            currentDirection = BACKWARD;
-            hasMoved = true;
-
+            }
         }
         if (keys.containsKey(STRAFE_LEFT)) {
-            tmp.set(camera.direction).crs(camera.up).nor().scl(-deltaTime * velocity);
-            if(Player.colliding && currentDirection != STRAFE_LEFT || !Player.colliding)
-            camera.position.add(tmp);
-            currentDirection = STRAFE_LEFT;
-            hasMoved = true;
-
+            if(MapChunk.map[(int)Math.floor(camera.position.x-camera.direction.x*velocity)][(int)camera.position.z] == 0) {
+                tmp.set(camera.direction).crs(camera.up).nor().scl(-deltaTime * velocity);
+                camera.position.add(tmp);
+            }
         }
         if (keys.containsKey(STRAFE_RIGHT)) {
-            tmp.set(camera.direction).crs(camera.up).nor().scl(deltaTime * velocity);
-            if(Player.colliding && currentDirection != STRAFE_RIGHT || !Player.colliding)
-            camera.position.add(tmp);
-            currentDirection = STRAFE_RIGHT;
-            hasMoved = true;
+            if(MapChunk.map[(int)Math.floor(camera.position.x-camera.direction.x*velocity)][(int)camera.position.z] == 0) {
+                tmp.set(camera.direction).crs(camera.up).nor().scl(deltaTime * velocity);
+                camera.position.add(tmp);
+            }
+        }
+        if(Gdx.input.isKeyPressed(SAVE)) {
+            save();
+        }
+        if(Gdx.input.isKeyPressed(LOAD)) {
+            load();
         }
 
         camera.position.y = 0;
 
         camera.update(true);
+    }
+    public void save(){
+        Preferences prefs = Gdx.app.getPreferences("Fructus_Victus");
+        prefs.putFloat("camerax", camera.position.x);
+        prefs.putFloat("cameray", camera.position.y);
+        prefs.putFloat("cameraz", camera.position.z);
+        prefs.flush();
+    }
+    public void load(){
+        Preferences prefs = Gdx.app.getPreferences("Fructus_Victus");
+        camera.position.x = prefs.getFloat("camerax");
+        camera.position.y = prefs.getFloat("cameray");
+        camera.position.z = prefs.getFloat("cameraz");
     }
 
 }
