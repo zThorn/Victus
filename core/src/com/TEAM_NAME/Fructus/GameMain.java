@@ -44,8 +44,6 @@ public class GameMain implements ApplicationListener{
 
     @Override
 	public void create () {
-        Bullet.init();
-
 		m.makeMap();
 
 		w = new Walls();
@@ -67,7 +65,6 @@ public class GameMain implements ApplicationListener{
 
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 		GLProfiler.enable();
-		Gdx.graphics.setVSync(false);
 	}
 
 	@Override

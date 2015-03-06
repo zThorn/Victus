@@ -71,14 +71,19 @@ public class FirstPersonCamera  extends InputAdapter {
         tmp.set(Vector3.Zero);
 
         if (keys.containsKey(FORWARD)) {
-            if(MapChunk.map[(int)Math.floor(camera.position.x+camera.direction.x*velocity)][(int)Math.floor(camera.position.z)] == 0) {
+            if(MapChunk.map[(int)Math.floor(camera.position.x+camera.direction.x*velocity)][(int)Math.floor(camera.position.z+deltaTime*velocity)] == 0
+        || MapChunk.map[(int)Math.floor(camera.position.x+camera.direction.x*velocity)+1][(int)Math.floor(camera.position.z+deltaTime*velocity)+1] == 0
+        || MapChunk.map[(int)Math.floor(camera.position.x+camera.direction.x*velocity)+1][(int)Math.floor(camera.position.z+deltaTime*velocity)-1] == 0
+        || MapChunk.map[(int)Math.floor(camera.position.x+camera.direction.x*velocity)-1][(int)Math.floor(camera.position.z+deltaTime*velocity)+1] == 0
+        || MapChunk.map[(int)Math.floor(camera.position.x+camera.direction.x*velocity)-1][(int)Math.floor(camera.position.z+deltaTime*velocity)-1] == 0){
+
                 tmp.set(camera.direction).nor().scl(deltaTime * velocity);
                 camera.position.add(tmp);
 
             }
         }
         if (keys.containsKey(BACKWARD)) {
-            if (MapChunk.map[(int) Math.floor(camera.position.x-camera.direction.x*velocity)][Math.round(camera.position.z)] == 0) {
+            if (MapChunk.map[(int) Math.floor(camera.position.x-camera.direction.x*velocity)][(int)Math.floor(camera.position.z)] == 0) {
                 tmp.set(camera.direction).nor().scl(-deltaTime * velocity);
                 camera.position.add(tmp);
             }

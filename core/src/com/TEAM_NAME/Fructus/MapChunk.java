@@ -28,7 +28,7 @@ public class MapChunk {
 		{
 			initMap();
 			//Calls Generation many times to make map more cavern like
-			for(int i = 0; i < 5; i++)
+			for(int i = 0; i < 30; i++)
 			{
 				generation();
 			}

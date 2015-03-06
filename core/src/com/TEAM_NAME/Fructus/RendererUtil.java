@@ -28,5 +28,6 @@ public class RendererUtil {
 	public static void renderDebug(BitmapFont font, SpriteBatch batch){
 		font.draw(batch, "fps: " + Gdx.graphics.getFramesPerSecond(), 20, 30);   
 		font.draw(batch, "draw calls: "+GLProfiler.drawCalls, 20,45);
+        font.draw(batch, "objects drawn: "+Renderer.renderedobjects,20,55);
 	}
 }

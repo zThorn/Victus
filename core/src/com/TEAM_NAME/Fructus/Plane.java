@@ -21,12 +21,12 @@ public class Plane {
     public Plane(Camera camera){
         decalBatch = new DecalBatch(new CameraGroupStrategy(camera));
         Decal decaltmp;
-        decaltmp = Decal.newDecal(75,75,new TextureRegion(new Texture(Gdx.files.internal("game_textures/test.png"))));
+        decaltmp = Decal.newDecal(100,100,new TextureRegion(Walls.raspberryTexture));
         decaltmp.setPosition(35,-.8f,35);
         decaltmp.setRotation(0, 90, 180);
         floorDecal.add(decaltmp);
 
-        decaltmp = Decal.newDecal(75,75,new TextureRegion(new Texture(Gdx.files.internal("game_textures/test.png"))));
+        decaltmp = Decal.newDecal(100,100,new TextureRegion(Walls.raspberryTexture));
         decaltmp.setPosition(35,1, 35);
         decaltmp.setRotation(0,90,180);
         ceilDecal.add(decaltmp);
