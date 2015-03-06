@@ -15,18 +15,17 @@ import com.badlogic.gdx.utils.IntIntMap;
 public class FirstPersonCamera  extends InputAdapter {
     private final Camera camera;
     private final IntIntMap keys = new IntIntMap();
-    private int currentDirection;
     private int STRAFE_LEFT = Input.Keys.A;
     private int STRAFE_RIGHT = Input.Keys.D;
     private int FORWARD = Input.Keys.W;
     private int BACKWARD = Input.Keys.S;
-    private int LOAD = Input.Keys.L;
-    private int SAVE = Input.Keys.K;
-    private float velocity = 2;
-    private float degreesPerPixel = 0.15f;
 
     public static boolean hasMoved = true;
-    public static final Vector3 tmp = new Vector3();
+    private int SAVE = Input.Keys.K;
+    private int LOAD = Input.Keys.L;
+    private float velocity = 5;
+    private float degreesPerPixel = 0.5f;
+    private final Vector3 tmp = new Vector3();
     public FirstPersonCamera(Camera camera){
         this.camera = camera;
     }
@@ -110,19 +109,21 @@ public class FirstPersonCamera  extends InputAdapter {
         camera.position.y = 0;
 
         camera.update(true);
-    }
-    public void save(){
-        Preferences prefs = Gdx.app.getPreferences("Fructus_Victus");
-        prefs.putFloat("camerax", camera.position.x);
-        prefs.putFloat("cameray", camera.position.y);
-        prefs.putFloat("cameraz", camera.position.z);
-        prefs.flush();
-    }
-    public void load(){
-        Preferences prefs = Gdx.app.getPreferences("Fructus_Victus");
-        camera.position.x = prefs.getFloat("camerax");
-        camera.position.y = prefs.getFloat("cameray");
-        camera.position.z = prefs.getFloat("cameraz");
-    }
+
+        }
+
+	public void save(){	 
+		Preferences prefs = Gdx.app.getPreferences("Fructus_Victus");
+		prefs.putFloat("camerax", camera.position.x);
+		prefs.putFloat("cameray", camera.position.y);
+		prefs.putFloat("cameraz", camera.position.z);
+		prefs.flush();
+	}
+	public void load(){
+		Preferences prefs = Gdx.app.getPreferences("Fructus_Victus");
+		camera.position.x = prefs.getFloat("camerax");
+		camera.position.y = prefs.getFloat("cameray");
+		camera.position.z = prefs.getFloat("cameraz");
+	}
 
 }
