@@ -17,7 +17,6 @@ import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
 
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.physics.bullet.collision.*;
 
 public class Renderer implements ApplicationListener {
 	ModelBatch modelBatch;
@@ -29,6 +28,7 @@ public class Renderer implements ApplicationListener {
 	Vector3 pos = new Vector3();
     boolean collision = false;
     static int renderedobjects = 0;
+    private boolean passMade = false;
 	@Override
 	public void create() {
 		modelBatch = new ModelBatch();
@@ -57,23 +57,31 @@ public class Renderer implements ApplicationListener {
 	public void render() {
         renderedobjects = 0;
 
-        Gdx.gl30.glEnable(GL30.GL_TEXTURE_2D);
-		Gdx.gl30.glEnable(GL30.GL_BLEND);
+        Gdx.gl20.glEnable(GL20.GL_TEXTURE_2D);
+		Gdx.gl20.glEnable(GL20.GL_BLEND);
 		
-		Gdx.gl30.glBlendFunc(GL30.GL_SRC_ALPHA, GL30.GL_ONE_MINUS_SRC_ALPHA);
-        Gdx.gl30.glEnable(GL30.GL_CULL_FACE);
+		Gdx.gl20.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+        Gdx.gl20.glEnable(GL20.GL_CULL_FACE);
 
-        Gdx.gl30.glCullFace(GL30.GL_BACK);
-		Gdx.gl30.glEnable(GL30.GL_DEPTH_TEST);
+        Gdx.gl20.glCullFace(GL20.GL_BACK);
+		Gdx.gl20.glEnable(GL20.GL_DEPTH_TEST);
 		Gdx.gl.glViewport(0,0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
-		Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT | GL30.GL_DEPTH_BUFFER_BIT);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 		
+		passMade = false;
         modelBatch.begin(camera);
 
         for(GameObject ins: Walls.getWalls()) {
             if (isVisible(ins, camera)) {
                 modelBatch.render(ins, environment);
                 renderedobjects++;
+                if(ins.getBoundingBox().intersects(Player.bounds) && passMade == false){
+                	passMade = true;
+                	Player.colliding = true;
+                } else if(!passMade && !ins.getBoundingBox().intersects(Player.bounds)){
+                	Player.colliding = false;
+                }
+                
             }
         }
         modelBatch.end();

@@ -7,7 +7,6 @@ import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.BoundingBox;
 import com.badlogic.gdx.math.collision.Ray;
-import com.badlogic.gdx.physics.bullet.collision.*;
 
 public class GameObject extends ModelInstance {
 	public final Vector3 center = new Vector3();
@@ -15,7 +14,7 @@ public class GameObject extends ModelInstance {
     public final float radius;
     private final static Vector3 position = new Vector3();
 
-    public BoundingBox bounds;
+    private BoundingBox bounds;
 
 
 	public GameObject(Model model) {

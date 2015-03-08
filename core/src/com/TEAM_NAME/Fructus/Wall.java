@@ -7,9 +7,6 @@ import com.badlogic.gdx.graphics.g3d.attributes.TextureAttribute;
 import com.badlogic.gdx.graphics.g3d.utils.ModelBuilder;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.physics.bullet.collision.btBoxShape;
-import com.badlogic.gdx.physics.bullet.collision.btCollisionObject;
-import com.badlogic.gdx.physics.bullet.collision.btCollisionShape;
 
 public class Wall {
 	public float centerPositionX, centerPositionY;
@@ -18,8 +15,6 @@ public class Wall {
 	public Model model;
 	public Rectangle bounds;
 	public ModelBuilder modelBuilder;
-    public btCollisionShape wallShape;
-	public btCollisionObject wallCollisionShape;
 
 	public Wall(float cX, float cY, float h, float w){
 		this.centerPositionX = cX;
@@ -32,9 +27,6 @@ public class Wall {
 				Usage.Position| Usage.Normal);
 		
 		bounds = new Rectangle(cX - w/2, cY - h / 2, w , h);
-        wallShape = new btBoxShape(new Vector3(w/2,h/2,.25f));
-        wallCollisionShape = new btCollisionObject();
-        wallCollisionShape.setCollisionShape(wallShape);
 	}
 	
 

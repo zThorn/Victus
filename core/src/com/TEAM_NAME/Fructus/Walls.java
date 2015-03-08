@@ -48,11 +48,12 @@ public class Walls {
     		for(int x=MapChunk.mapWidth-1; x > 0 ; x--){
                 switch(MapChunk.map[x][y]){
 	    			case 1:
-	    				model = modelBuilder.createBox(1f, 2f, 1f, new Material(TextureAttribute.createDiffuse(Walls.raspberryTexture)),
+	    				model = modelBuilder.createBox(2f, 2f, 2f, new Material(TextureAttribute.createDiffuse(Walls.redAppleTexture)),
 	    		  				Usage.Position| Usage.Normal | Usage.TextureCoordinates);
 	    		         instance = new GameObject(model);
-	    		         instance.transform.setTranslation(new Vector3(x,0,y));
+	    		         instance.transform.setTranslation(new Vector3(x*2,0,y*2));
 	    		         instance.calculateTransforms();
+	    		         instance.getBoundingBox().set(instance.getBoundingBox().min.add(x*2,0,y*2),instance.getBoundingBox().max.add(x*2,0,y*2));
                          walls.add(instance);
 	    				break;
 	    			/*case 2:

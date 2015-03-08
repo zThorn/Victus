@@ -19,13 +19,15 @@ public class FirstPersonCamera  extends InputAdapter {
     private int STRAFE_RIGHT = Input.Keys.D;
     private int FORWARD = Input.Keys.W;
     private int BACKWARD = Input.Keys.S;
+    private int NOCLIP = Input.Keys.N;
+    private boolean noclip = false;
 
     public static boolean hasMoved = true;
     private int SAVE = Input.Keys.K;
     private int LOAD = Input.Keys.L;
-    private float velocity = 2.5f;
+    private float velocity = 1f;
     private float degreesPerPixel = 0.5f;
-    private final Vector3 tmp = new Vector3();
+    public static final Vector3 tmp = new Vector3();
     public FirstPersonCamera(Camera camera){
         this.camera = camera;
     }
@@ -69,40 +71,36 @@ public class FirstPersonCamera  extends InputAdapter {
         hasMoved = false;
         tmp.set(Vector3.Zero);
 
-        if (keys.containsKey(FORWARD)) {
-            if(MapChunk.map[(int)Math.floor(camera.position.x+camera.direction.x*velocity)][(int)Math.floor(camera.position.z+deltaTime*velocity)] == 0
-        || MapChunk.map[(int)Math.floor(camera.position.x+camera.direction.x*velocity)+1][(int)Math.floor(camera.position.z+deltaTime*velocity)+1] == 0
-        || MapChunk.map[(int)Math.floor(camera.position.x+camera.direction.x*velocity)+1][(int)Math.floor(camera.position.z+deltaTime*velocity)-1] == 0
-        || MapChunk.map[(int)Math.floor(camera.position.x+camera.direction.x*velocity)-1][(int)Math.floor(camera.position.z+deltaTime*velocity)+1] == 0
-        || MapChunk.map[(int)Math.floor(camera.position.x+camera.direction.x*velocity)-1][(int)Math.floor(camera.position.z+deltaTime*velocity)-1] == 0){
-
+        if (keys.containsKey(FORWARD) && (!Player.colliding || noclip)) {
+            
                 tmp.set(camera.direction).nor().scl(deltaTime * velocity);
                 camera.position.add(tmp);
-            }
         }
-        if (keys.containsKey(BACKWARD)) {
-            if (MapChunk.map[(int) Math.floor(camera.position.x-camera.direction.x*velocity)][(int)Math.floor(camera.position.z)] == 0) {
+        
+        if (keys.containsKey(BACKWARD) && (!Player.colliding || noclip)) {
                 tmp.set(camera.direction).nor().scl(-deltaTime * velocity);
                 camera.position.add(tmp);
-            }
+            
         }
-        if (keys.containsKey(STRAFE_LEFT)) {
-            if(MapChunk.map[(int)Math.floor(camera.position.x-camera.direction.x*velocity)][(int)camera.position.z] == 0) {
-                tmp.set(camera.direction).crs(camera.up).nor().scl(-deltaTime * velocity);
-                camera.position.add(tmp);
-            }
+        if (keys.containsKey(STRAFE_LEFT) && (!Player.colliding || noclip)) {
+	                tmp.set(camera.direction).crs(camera.up).nor().scl(-deltaTime * velocity);
+	                camera.position.add(tmp);
+	            	
+	            
         }
-        if (keys.containsKey(STRAFE_RIGHT)) {
-            if(MapChunk.map[(int)Math.floor(camera.position.x-camera.direction.x*velocity)][(int)camera.position.z] == 0) {
+        if (keys.containsKey(STRAFE_RIGHT) && (!Player.colliding || noclip)) {
                 tmp.set(camera.direction).crs(camera.up).nor().scl(deltaTime * velocity);
                 camera.position.add(tmp);
-            }
+            
         }
         if(Gdx.input.isKeyPressed(SAVE)) {
             save();
         }
         if(Gdx.input.isKeyPressed(LOAD)) {
             load();
+        } if(keys.containsKey(NOCLIP)){
+        	noclip = !noclip;
+        	System.out.println(noclip);
         }
 
         camera.position.y = 0;

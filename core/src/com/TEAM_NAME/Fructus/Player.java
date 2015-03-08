@@ -8,9 +8,6 @@ import com.badlogic.gdx.graphics.g3d.environment.DirectionalLight;
 import com.badlogic.gdx.graphics.g3d.utils.FirstPersonCameraController;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.BoundingBox;
-import com.badlogic.gdx.physics.bullet.collision.btBoxShape;
-import com.badlogic.gdx.physics.bullet.collision.btCollisionObject;
-import com.badlogic.gdx.physics.bullet.collision.btCollisionShape;
 
 /**
  * Created by zthorn on 2/22/15.
@@ -20,11 +17,15 @@ public class Player extends GameObject {
     private FirstPersonCamera fpcc ;
     private DirectionalLight dirLight;
     public static boolean colliding = false;
-
+    public static BoundingBox bounds;
 
     public Player(Model model){
         super(model);
-
+        bounds = new BoundingBox();
+		calculateBoundingBox(bounds);
+		bounds.getCenter(center);
+		bounds.getDimensions(dimensions);
+        
 
     }
 
@@ -39,8 +40,10 @@ public class Player extends GameObject {
     public void movePlayer(){
         fpcc.update();
         dirLight.set(250, 235, 125, camera.direction);
-
-       // System.out.println(this.transform);
+        bounds.set(new Vector3(camera.position.x-.55f,-1,camera.position.z-.55f),new Vector3(camera.position.x+.55f,1,camera.position.z+.55f));
+        
+        
+        // System.out.println(this.transform);
 
 
     }

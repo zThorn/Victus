@@ -2,8 +2,8 @@ package com.TEAM_NAME.Fructus;
 
 public class MapChunk {
 	//Size of map
-		public static final int mapWidth = 100;
-		public static final int mapHeight = 100;
+		public static final int mapWidth = 250;
+		public static final int mapHeight = 250;
 
 		//Map of stage
 		public static int[][] map = new int[mapWidth][mapHeight];
@@ -28,7 +28,7 @@ public class MapChunk {
 		{
 			initMap();
 			//Calls Generation many times to make map more cavern like
-			for(int i = 0; i < 30; i++)
+			for(int i = 0; i < 10; i++)
 			{
 				generation();
 			}
