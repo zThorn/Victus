@@ -24,7 +24,7 @@ public class MapChunk {
 		public static int r2_cutoff = 2;
 		
 		//FUNCTION TO CREATE MAP
-		public void makeMap()
+		public static void makeMap()
 		{
 			initMap();
 			//Calls Generation many times to make map more cavern like
