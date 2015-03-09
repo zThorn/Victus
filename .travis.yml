@@ -6,6 +6,7 @@ deploy:
   api_key:
     secure: va3xSIGr5gbEQaT0mum/3ETyxMyhCVw1kwA/70bkGeG7/CMz01j2xOgelBHKy4yoOGOA9P6O5Et3aZIO0ZUGqDqAwzZlzeSZid5E8GsNcv3FnbBWp+fdKL5SW/7XQGbi6oD4piqpPoX4Gqik0JMyRX/IenApYxn/naCTNxQpVqU=
   file: "/desktop/build/libs/desktop-1.0.jar"
+  skip_cleanup: true
   on:
     repo: zThorn/Victus
     all_branches: true
