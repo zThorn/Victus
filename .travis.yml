@@ -8,3 +8,5 @@ deploy:
   file: "/desktop/build/libs/desktop-1.0.jar"
   on:
     repo: zThorn/Victus
+    tags: true
+    all_branches: true
