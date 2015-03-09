@@ -34,9 +34,9 @@ public class GameMain implements ApplicationListener{
 
     @Override
 	public void create () {
+		m = new MapChunk();
 		m.makeMap();
 
-		
 		w = new Walls();
 		//Loads all of the all textures from a file
 		w.loadTextures();
