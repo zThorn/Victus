@@ -1,6 +1,5 @@
 package com.TEAM_NAME.Fructus;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Input.Keys;
 

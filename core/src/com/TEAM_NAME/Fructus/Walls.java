@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.VertexAttributes.Usage;
 import com.badlogic.gdx.graphics.g3d.Material;
 import com.badlogic.gdx.graphics.g3d.Model;
 import com.badlogic.gdx.graphics.g3d.ModelBatch;
-import com.badlogic.gdx.graphics.g3d.ModelInstance;
 import com.badlogic.gdx.graphics.g3d.attributes.TextureAttribute;
 import com.badlogic.gdx.graphics.g3d.utils.ModelBuilder;
 import com.badlogic.gdx.math.Vector3;
@@ -14,7 +13,7 @@ import com.badlogic.gdx.utils.Array;
 
 
 //Walls is going to act as a manager class for Wall,
-//While wall contains data required to figure out the position
+//While GameObject contains data required to figure out the position
 //Of where the wall should be rendered, this class will add created
 //walls to the array, as well as will handle which textures get loaded
 public class Walls {

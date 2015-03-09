@@ -1,13 +1,10 @@
 package com.TEAM_NAME.Fructus;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g3d.decals.CameraGroupStrategy;
 import com.badlogic.gdx.graphics.g3d.decals.Decal;
 import com.badlogic.gdx.graphics.g3d.decals.DecalBatch;
-import com.badlogic.gdx.graphics.g3d.utils.ModelBuilder;
 import com.badlogic.gdx.utils.Array;
 
 /**
@@ -21,11 +18,14 @@ public class Plane {
     public Plane(Camera camera){
         decalBatch = new DecalBatch(new CameraGroupStrategy(camera));
         Decal decaltmp;
+        
+        //Floor
         decaltmp = Decal.newDecal(500,500,new TextureRegion(Walls.raspberryTexture));
         decaltmp.setPosition(35,-.8f,35);
         decaltmp.setRotation(0, 90, 180);
         floorDecal.add(decaltmp);
 
+        //Ceiling
         decaltmp = Decal.newDecal(500,500,new TextureRegion(Walls.raspberryTexture));
         decaltmp.setPosition(35,1, 35);
         decaltmp.setRotation(0,90,180);

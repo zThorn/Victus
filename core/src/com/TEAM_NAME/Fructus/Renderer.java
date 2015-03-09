@@ -1,11 +1,9 @@
 package com.TEAM_NAME.Fructus;
 
-//Frustum culling appears to be broken.
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.PerspectiveCamera;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -15,7 +13,6 @@ import com.badlogic.gdx.graphics.g3d.ModelBatch;
 import com.badlogic.gdx.graphics.g3d.ModelInstance;
 import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
 
-import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector3;
 
 public class Renderer implements ApplicationListener {

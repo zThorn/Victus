@@ -1,10 +1,8 @@
 package com.TEAM_NAME.Fructus;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Preferences;
-import com.badlogic.gdx.graphics.g3d.utils.FirstPersonCameraController;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.IntIntMap;
@@ -98,7 +96,9 @@ public class FirstPersonCamera  extends InputAdapter {
         	System.out.println(noclip);
         }
         
+        
         Player.colliding = false;
+        //This makes sure that the camera stays locked to a single plane
         camera.position.y = 0;
         camera.update(true);
 
