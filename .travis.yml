@@ -3,6 +3,8 @@ before_install:
 - chmod +x gradlew
 script:
 	-gradle desktop:dist
+before_deploy:
+	-ls -R
 install: true
 deploy:
   provider: releases
