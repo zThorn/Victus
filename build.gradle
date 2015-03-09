@@ -1,4 +1,3 @@
-mainclass = com.TEAM_NAME.Fructus
 buildscript {
     repositories {
         mavenCentral()
