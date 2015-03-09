@@ -1,11 +1,11 @@
 language: java
 before_install:
 - chmod +x gradlew
-script:
-	-gradle desktop:dist
-before_deploy:
-	-ls -R
+script: 
+- gradle dist
 install: true
+before_deploy:
+- ls -R
 deploy:
   provider: releases
   api_key:
