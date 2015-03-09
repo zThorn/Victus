@@ -28,6 +28,9 @@ public class RendererUtil {
 	public static void renderDebug(BitmapFont font, SpriteBatch batch){
 		font.draw(batch, "fps: " + Gdx.graphics.getFramesPerSecond(), 20, 30);   
 		font.draw(batch, "draw calls: "+GLProfiler.drawCalls, 20,45);
-        font.draw(batch, "objects drawn: "+Renderer.renderedobjects,20,55);
+        font.draw(batch, "objects drawn: "+Renderer.renderedobjects,20,60);
+        font.draw(batch, "Noclip: "+FirstPersonCamera.noclip,20,75);
+        font.draw(batch, "Player X: "+Renderer.camera.position.x+
+        		" Player Y: "+Renderer.camera.position.z,20,90);
 	}
 }

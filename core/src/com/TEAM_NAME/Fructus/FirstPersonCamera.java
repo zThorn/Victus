@@ -13,21 +13,19 @@ import com.badlogic.gdx.utils.IntIntMap;
  * Created by zthorn on 3/3/2015.
  */
 public class FirstPersonCamera  extends InputAdapter {
+	
     private final Camera camera;
     private final IntIntMap keys = new IntIntMap();
-    private int STRAFE_LEFT = Input.Keys.A;
-    private int STRAFE_RIGHT = Input.Keys.D;
-    private int FORWARD = Input.Keys.W;
-    private int BACKWARD = Input.Keys.S;
-    private int NOCLIP = Input.Keys.N;
-    private boolean noclip = false;
-
-    public static boolean hasMoved = true;
-    private int SAVE = Input.Keys.K;
-    private int LOAD = Input.Keys.L;
+   
+    public static boolean noclip = false;
+    
     private float velocity = 1f;
     private float degreesPerPixel = 0.5f;
+    
+    private int lastMove;
+    
     public static final Vector3 tmp = new Vector3();
+    
     public FirstPersonCamera(Camera camera){
         this.camera = camera;
     }
@@ -68,43 +66,40 @@ public class FirstPersonCamera  extends InputAdapter {
     }
 
     public void update (float deltaTime) {
-        hasMoved = false;
         tmp.set(Vector3.Zero);
-
-        if (keys.containsKey(FORWARD) && (!Player.colliding || noclip)) {
-            
+        if (keys.containsKey(Controls.forwardKey) && (!Player.colliding || noclip || (lastMove != Controls.forwardKey))) {
                 tmp.set(camera.direction).nor().scl(deltaTime * velocity);
                 camera.position.add(tmp);
+                lastMove = Controls.forwardKey;
         }
         
-        if (keys.containsKey(BACKWARD) && (!Player.colliding || noclip)) {
+        if (keys.containsKey(Controls.backKey) && (!Player.colliding || noclip || (lastMove != Controls.backKey))) {
                 tmp.set(camera.direction).nor().scl(-deltaTime * velocity);
-                camera.position.add(tmp);
-            
+                camera.position.add(tmp);  
+                lastMove = Controls.backKey;
         }
-        if (keys.containsKey(STRAFE_LEFT) && (!Player.colliding || noclip)) {
+        if (keys.containsKey(Controls.strafeLeft) && (!Player.colliding || noclip || (lastMove != Controls.strafeLeft))) {
 	                tmp.set(camera.direction).crs(camera.up).nor().scl(-deltaTime * velocity);
 	                camera.position.add(tmp);
-	            	
-	            
+	                lastMove = Controls.strafeLeft;
         }
-        if (keys.containsKey(STRAFE_RIGHT) && (!Player.colliding || noclip)) {
+        if (keys.containsKey(Controls.strafeRight) && (!Player.colliding || noclip || (lastMove != Controls.strafeRight))) {
                 tmp.set(camera.direction).crs(camera.up).nor().scl(deltaTime * velocity);
-                camera.position.add(tmp);
-            
+                camera.position.add(tmp);  
+                lastMove = Controls.strafeRight;
         }
-        if(Gdx.input.isKeyPressed(SAVE)) {
+        if(Gdx.input.isKeyPressed(Controls.save)) {
             save();
         }
-        if(Gdx.input.isKeyPressed(LOAD)) {
+        if(Gdx.input.isKeyPressed(Controls.load)) {
             load();
-        } if(keys.containsKey(NOCLIP)){
+        } if(keys.containsKey(Controls.noclip)){
         	noclip = !noclip;
         	System.out.println(noclip);
         }
-
+        
+        Player.colliding = false;
         camera.position.y = 0;
-
         camera.update(true);
 
         }

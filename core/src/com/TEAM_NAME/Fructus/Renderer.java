@@ -22,13 +22,14 @@ public class Renderer implements ApplicationListener {
 	ModelBatch modelBatch;
 	SpriteBatch batch;
 	ModelInstance instance;
-	PerspectiveCamera camera;
+	static PerspectiveCamera camera;
 	Model model;
 	static Environment environment;
 	Vector3 pos = new Vector3();
     boolean collision = false;
     static int renderedobjects = 0;
     private boolean passMade = false;
+    
 	@Override
 	public void create() {
 		modelBatch = new ModelBatch();
@@ -45,9 +46,7 @@ public class Renderer implements ApplicationListener {
         environment.set(new ColorAttribute(ColorAttribute.AmbientLight, 0.2f, 0.2f, 0.2f, 1.0f));
 	}
 	@Override
-	public void resize(int width, int height) {
-		// TODO Auto-generated method stub
-		
+	public void resize(int width, int height) {		
 	}
 	
 	public static Environment getEnvironment(){
@@ -61,8 +60,8 @@ public class Renderer implements ApplicationListener {
 		Gdx.gl20.glEnable(GL20.GL_BLEND);
 		
 		Gdx.gl20.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+		
         Gdx.gl20.glEnable(GL20.GL_CULL_FACE);
-
         Gdx.gl20.glCullFace(GL20.GL_BACK);
 		Gdx.gl20.glEnable(GL20.GL_DEPTH_TEST);
 		Gdx.gl.glViewport(0,0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
@@ -87,8 +86,8 @@ public class Renderer implements ApplicationListener {
         modelBatch.end();
     }
 
-	public PerspectiveCamera getPerspectiveCamera(){
-		return this.camera;
+	public static PerspectiveCamera getPerspectiveCamera(){
+		return camera;
 	}
 	public boolean isVisible(GameObject i, Camera c){
 		 	i.transform.getTranslation(pos);

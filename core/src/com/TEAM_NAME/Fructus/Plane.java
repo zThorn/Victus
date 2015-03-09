@@ -21,18 +21,15 @@ public class Plane {
     public Plane(Camera camera){
         decalBatch = new DecalBatch(new CameraGroupStrategy(camera));
         Decal decaltmp;
-        decaltmp = Decal.newDecal(100,100,new TextureRegion(Walls.raspberryTexture));
+        decaltmp = Decal.newDecal(500,500,new TextureRegion(Walls.raspberryTexture));
         decaltmp.setPosition(35,-.8f,35);
         decaltmp.setRotation(0, 90, 180);
         floorDecal.add(decaltmp);
 
-        decaltmp = Decal.newDecal(100,100,new TextureRegion(Walls.raspberryTexture));
+        decaltmp = Decal.newDecal(500,500,new TextureRegion(Walls.raspberryTexture));
         decaltmp.setPosition(35,1, 35);
         decaltmp.setRotation(0,90,180);
         ceilDecal.add(decaltmp);
-
-       // decal = Decal.newDecal(64,64,new TextureRegion(new Texture(Gdx.files.internal("game_textures/gross1.png"))));
-
     }
 
     public void render(){
@@ -43,13 +40,6 @@ public class Plane {
             decal = floorDecal.get(i);
             decalBatch.add(decal);
         }
-
         decalBatch.flush();
     }
-
-    public void generateFloor(){
-        ModelBuilder modelBuilder = new ModelBuilder();
-
-    }
-
 }

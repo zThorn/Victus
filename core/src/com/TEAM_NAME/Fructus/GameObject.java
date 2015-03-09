@@ -16,7 +16,6 @@ public class GameObject extends ModelInstance {
 
     private BoundingBox bounds;
 
-
 	public GameObject(Model model) {
 		super(model);
         bounds = new BoundingBox();
@@ -24,19 +23,8 @@ public class GameObject extends ModelInstance {
 		bounds.getCenter(center);
 		bounds.getDimensions(dimensions);
 		radius = dimensions.len() / 2f;
-
-
 	}
 
     public  BoundingBox getBoundingBox(){return bounds;}
-
-    public float intersects(Matrix4 transform, Ray ray) {
-        transform.getTranslation(position).add(center);
-        if (Intersector.intersectRayBoundsFast(ray, position, dimensions)) {
-            final float len = ray.direction.dot(position.x-ray.origin.x, position.y-ray.origin.y, position.z-ray.origin.z);
-            return position.dst2(ray.origin.x+ray.direction.x*len, ray.origin.y+ray.direction.y*len, ray.origin.z+ray.direction.z*len);
-        }
-        return -1f;
-    }
 
 }
