@@ -17,7 +17,7 @@ public class FirstPersonCamera  extends InputAdapter {
    
     public static boolean noclip = false;
     
-    private float velocity = 1f;
+    private float velocity = 10f;
     private float degreesPerPixel = 0.5f;
     
     private int lastMove;
@@ -26,6 +26,10 @@ public class FirstPersonCamera  extends InputAdapter {
     
     public FirstPersonCamera(Camera camera){
         this.camera = camera;
+    }
+    
+    public Camera getCamera(){
+    	return this.camera;
     }
 
     @Override

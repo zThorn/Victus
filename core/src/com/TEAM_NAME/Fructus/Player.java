@@ -1,9 +1,12 @@
 package com.TEAM_NAME.Fructus;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.PerspectiveCamera;
 import com.badlogic.gdx.graphics.g3d.Model;
 import com.badlogic.gdx.graphics.g3d.environment.DirectionalLight;
+import com.badlogic.gdx.graphics.g3d.environment.PointLight;
+import com.badlogic.gdx.graphics.g3d.environment.SpotLight;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.BoundingBox;
 
@@ -14,6 +17,7 @@ public class Player extends GameObject {
     private static PerspectiveCamera camera;
     private FirstPersonCamera fpcc ;
     private DirectionalLight dirLight;
+    private PointLight pLight;
     
     public static boolean colliding = false;
     public static BoundingBox bounds;
@@ -31,12 +35,20 @@ public class Player extends GameObject {
         fpcc = new FirstPersonCamera(camera);
         Gdx.input.setInputProcessor(fpcc);
         Gdx.input.setCursorCatched(true);
-        Renderer.environment.add(dirLight = new DirectionalLight().set(250,235,125,new Vector3(20,0,1)));
+        dirLight = new DirectionalLight();
+        dirLight.set(new Color(1f,1f,1f,1), camera.direction);
+        pLight = new PointLight();
+        pLight.set(new Color(.2f,.2f,.2f,1),camera.position,125f);
+        
+        
+        Renderer.environment.add(pLight);
+        Renderer.environment.add(dirLight);
     }
     
     public void movePlayer(){
         fpcc.update();
-        dirLight.set(250, 235, 125, camera.direction);
+        pLight.position.set(camera.position);
+        dirLight.direction.set(camera.direction);
         bounds.set(new Vector3(camera.position.x-.55f,-1,camera.position.z-.55f),new Vector3(camera.position.x+.55f,1,camera.position.z+.55f));
 
     }

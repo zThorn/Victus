@@ -37,7 +37,7 @@ public class Renderer implements ApplicationListener {
 
         camera.lookAt(0,0,0);
         camera.near = .5f;
-        camera.far = 25f;
+        camera.far = 100f;
         camera.update();
         environment = new Environment();
         environment.set(new ColorAttribute(ColorAttribute.AmbientLight, 0.2f, 0.2f, 0.2f, 1.0f));
@@ -79,6 +79,11 @@ public class Renderer implements ApplicationListener {
                 }
                 
             }
+        }
+        
+        for(Plane pl: Walls.getPlanes()){
+        	modelBatch.render(pl,environment);
+        	renderedobjects++;
         }
         modelBatch.end();
     }

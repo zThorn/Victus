@@ -28,5 +28,6 @@ public class RendererUtil {
         font.draw(batch, "Noclip: "+FirstPersonCamera.noclip,20,75);
         font.draw(batch, "Player X: "+Renderer.camera.position.x+
         		" Player Y: "+Renderer.camera.position.z,20,90);
+        font.draw(batch, "Player Direction: "+Renderer.camera.direction, 20, 105);
 	}
 }

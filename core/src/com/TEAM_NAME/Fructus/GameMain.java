@@ -49,7 +49,6 @@ public class GameMain implements ApplicationListener{
 		font = new BitmapFont();
         batch = new SpriteBatch();
 		r.create();
-        floor = new Plane(Renderer.getPerspectiveCamera());
 
 
         //I create a box of 1x1x1 in order to automagically calculate the bounding
@@ -72,7 +71,7 @@ public class GameMain implements ApplicationListener{
 		p.movePlayer();
 		
 		//Floor is a bit of a misnomer here, it also refers to the ceiling
-        floor.render();
+        //floor.render();
         
         
         batch.begin();
