@@ -1,12 +1,15 @@
 package com.TEAM_NAME.Fructus;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.Texture.TextureWrap;
 import com.badlogic.gdx.graphics.VertexAttributes.Usage;
 import com.badlogic.gdx.graphics.g3d.Material;
 import com.badlogic.gdx.graphics.g3d.Model;
 import com.badlogic.gdx.graphics.g3d.ModelBatch;
 import com.badlogic.gdx.graphics.g3d.attributes.TextureAttribute;
+import com.badlogic.gdx.graphics.g3d.utils.MeshPartBuilder;
 import com.badlogic.gdx.graphics.g3d.utils.ModelBuilder;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
@@ -22,15 +25,16 @@ public class Walls {
 	static Texture greenAppleTexture;
 	static Texture raspberryTexture;
     static Texture groundTexture;
+    static Texture abstractWallTexture;
+    static Texture fruitShit2;
+    static Texture planeTexture;
+
 	ModelBatch modelBatch;
 	Model model;
 	GameObject instance;
 
     private static Array<GameObject> walls = new Array<GameObject>();
-    private static Array<Plane> planes = new Array<Plane>();
-
-    
-    
+    private static Array<Plane> planes = new Array<Plane>();   
     
     public void loadTextures(){
     	raspberryTexture = new Texture(Gdx.files.internal("game_textures/seamless/raspberry.png"));
@@ -38,6 +42,8 @@ public class Walls {
 		redAppleTexture = new Texture(Gdx.files.internal("game_textures/seamless/red_apple.png"));
 		greenAppleTexture = new Texture(Gdx.files.internal("badlogic.jpg"));
         groundTexture = new Texture(Gdx.files.internal("game_textures/wood.png"));
+        abstractWallTexture = new Texture(Gdx.files.internal("abstractWall.png"));
+        planeTexture = new Texture(Gdx.files.internal("planeTexture.png"));
     }
     
     public static Array<GameObject> getWalls(){ return walls;}
@@ -46,31 +52,32 @@ public class Walls {
     public void generateWorld(){
     	 ModelBuilder modelBuilder = new ModelBuilder();
     	 Plane temp;
-         //decaltmp.setPosition(35,-.8f,35);
-        // decaltmp.setPosition(35,1, 35);
-         
-      /* model = modelBuilder.createRect(0f, -10f,0f,
-        							   0f,-10f,500f,
-        							   500f,-10f,500f,
-        							   500f,-10f,0f,
-        							   Vector3.X.x,Vector3.Y.y,Vector3.Z.z,new Material(TextureAttribute.createDiffuse(Walls.redAppleTexture)), Usage.Position | Usage.Normal | Usage.TextureCoordinates);*/
-    	 //instance = new GameObject(model);
-    	//instance.transform.setToRotation(Vector3.Z,180f);
-    	
-    	 model = modelBuilder.createBox(500, 1, 500, new Material(TextureAttribute.createDiffuse(Walls.redAppleTexture)), Usage.Position | Usage.Normal | Usage.TextureCoordinates);
+    	 Walls.planeTexture.setWrap(TextureWrap.Repeat, TextureWrap.Repeat);
+    	 Material temp2 = new Material(TextureAttribute.createDiffuse(Walls.planeTexture));
+    	 
+    	 modelBuilder.begin();
+    	 MeshPartBuilder mpb = modelBuilder.part("box", GL20.GL_TRIANGLES, Usage.Normal | Usage.TextureCoordinates | Usage.Position, temp2);
+    	 mpb.setUVRange(0, 0, 50, 50);
+    	 mpb.box(500, 1, 500);
+    	 model = modelBuilder.end();
     	 temp = new Plane(model);
-    	 temp.transform.setTranslation(new Vector3(0,-1.5f,0));
+    	 temp.transform.setTranslation(new Vector3(0,-1.75f,0));
     	 planes.add(temp);
 
-    	 model = modelBuilder.createBox(500, 1, 500, new Material(TextureAttribute.createDiffuse(Walls.redAppleTexture)), Usage.Position | Usage.Normal | Usage.TextureCoordinates);
+    	 
+    	 modelBuilder.begin();
+    	 mpb = modelBuilder.part("box", GL20.GL_TRIANGLES, Usage.Position | Usage.TextureCoordinates | Usage.Normal, temp2);
+    	 mpb.setUVRange(0, 0, 50, 50);
+    	 mpb.box(500, 1, 500);
+    	 model = modelBuilder.end();
     	 temp = new Plane(model);
-    	 temp.transform.setTranslation(new Vector3(0,1f,0));
+    	 temp.transform.setTranslation(new Vector3(0,1.25f,0));
     	 planes.add(temp);
         for(int y=MapChunk.mapHeight-1; y > 0 ; y--){
     		for(int x=MapChunk.mapWidth-1; x > 0 ; x--){
                 switch(MapChunk.map[x][y]){
 	    			case 1:
-	    				model = modelBuilder.createBox(2f, 2f, 2f, new Material(TextureAttribute.createDiffuse(Walls.redAppleTexture)),
+	    				model = modelBuilder.createBox(2f, 2f, 2f, new Material(TextureAttribute.createDiffuse(Walls.abstractWallTexture)),
 	    		  				Usage.Position| Usage.Normal | Usage.TextureCoordinates);
 	    		         instance = new GameObject(model);
 	    		         instance.transform.setTranslation(new Vector3(x*2,0,y*2));
@@ -90,11 +97,7 @@ public class Walls {
 
                         break;*/
                     case 0:
-
 	    			default:
-
-
-
                 }
             }
     	}

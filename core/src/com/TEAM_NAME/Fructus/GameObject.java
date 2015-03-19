@@ -9,7 +9,6 @@ public class GameObject extends ModelInstance {
 	public final Vector3 center = new Vector3();
     public final Vector3 dimensions = new Vector3();
     public final float radius;
-    private final static Vector3 position = new Vector3();
 
     private BoundingBox bounds;
 

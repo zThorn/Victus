@@ -17,7 +17,7 @@ public class FirstPersonCamera  extends InputAdapter {
    
     public static boolean noclip = false;
     
-    private float velocity = 10f;
+    private float velocity = 2.5f;
     private float degreesPerPixel = 0.5f;
     
     private int lastMove;

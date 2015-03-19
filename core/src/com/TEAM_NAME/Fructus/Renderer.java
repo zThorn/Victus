@@ -5,14 +5,13 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.PerspectiveCamera;
-
+import com.badlogic.gdx.graphics.Texture.TextureWrap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g3d.Environment;
 import com.badlogic.gdx.graphics.g3d.Model;
 import com.badlogic.gdx.graphics.g3d.ModelBatch;
 import com.badlogic.gdx.graphics.g3d.ModelInstance;
 import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
-
 import com.badlogic.gdx.math.Vector3;
 
 public class Renderer implements ApplicationListener {
@@ -34,10 +33,9 @@ public class Renderer implements ApplicationListener {
         while(MapChunk.map[(int)camera.position.x] [(int)camera.position.z] != 0)
             camera.position.set((float)Math.random()*50, 0f, (float)Math.random()*50);
 
-
         camera.lookAt(0,0,0);
         camera.near = .5f;
-        camera.far = 100f;
+        camera.far = 45f;
         camera.update();
         environment = new Environment();
         environment.set(new ColorAttribute(ColorAttribute.AmbientLight, 0.2f, 0.2f, 0.2f, 1.0f));
@@ -77,7 +75,6 @@ public class Renderer implements ApplicationListener {
                 } else if(!passMade && !ins.getBoundingBox().intersects(Player.bounds)){
                 	Player.colliding = false;
                 }
-                
             }
         }
         

@@ -16,8 +16,6 @@ import com.badlogic.gdx.graphics.profiling.GLProfiler;
 
 public class GameMain implements ApplicationListener{
 	SpriteBatch batch;
-	
-
 	static int screenWidth = 800;
 	static int screenHeight = 600;
 	Renderer r;
@@ -30,8 +28,6 @@ public class GameMain implements ApplicationListener{
 	MapChunk m;
     ModelBuilder modelBuilder = new ModelBuilder();
 
-
-
     @Override
 	public void create () {
 		m = new MapChunk();
@@ -42,14 +38,12 @@ public class GameMain implements ApplicationListener{
 		w.loadTextures();
 		//Populates the world with cubes representing the world
 		w.generateWorld();
-
 		
 		r = new Renderer();
 		log = new FPSLogger();
 		font = new BitmapFont();
         batch = new SpriteBatch();
 		r.create();
-
 
         //I create a box of 1x1x1 in order to automagically calculate the bounding
         //box used for collision detection
@@ -63,17 +57,10 @@ public class GameMain implements ApplicationListener{
 
 	@Override
 	public void render () {
-
 	    //Renderer -> render
 		r.render();
-
-		
 		p.movePlayer();
-		
-		//Floor is a bit of a misnomer here, it also refers to the ceiling
-        //floor.render();
-        
-        
+		    
         batch.begin();
             RendererUtil.renderDebug(font, batch);
             GLProfiler.reset();
@@ -82,26 +69,21 @@ public class GameMain implements ApplicationListener{
 
 	@Override
 	public void resize(int width, int height) {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub	
 	}
 
 	@Override
 	public void pause() {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub	
 	}
 
 	@Override
 	public void resume() {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub		
 	}
 
 	@Override
 	public void dispose() {
-
-
 		
 	}		
 }

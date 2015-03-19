@@ -24,11 +24,11 @@ public class MapChunk {
 		public static int r2_cutoff = 2;
 		
 		//FUNCTION TO CREATE MAP
-		public static void makeMap()
+		public void makeMap()
 		{
 			initMap();
 			//Calls Generation many times to make map more cavern like
-			for(int i = 0; i < 10; i++)
+			for(int i = 0; i < 30; i++)
 			{
 				generation();
 			}
