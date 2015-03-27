@@ -58,8 +58,8 @@ public class GameMain implements ApplicationListener{
 	@Override
 	public void render () {
 	    //Renderer -> render
-		r.render();
 		p.movePlayer();
+		r.render();
 		    
         batch.begin();
             RendererUtil.renderDebug(font, batch);

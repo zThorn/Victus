@@ -69,23 +69,23 @@ public class FirstPersonCamera  extends InputAdapter {
 
     public void update (float deltaTime) {
         tmp.set(Vector3.Zero);
-        if (keys.containsKey(Controls.forwardKey) && (!Player.colliding || noclip || (lastMove != Controls.forwardKey))) {
+        if (keys.containsKey(Controls.forwardKey) && (!Player.colliding || noclip) || (Player.colliding && lastMove == Controls.backKey)) {
                 tmp.set(camera.direction).nor().scl(deltaTime * velocity);
                 camera.position.add(tmp);
                 lastMove = Controls.forwardKey;
         }
         
-        if (keys.containsKey(Controls.backKey) && (!Player.colliding || noclip || (lastMove != Controls.backKey))) {
+        if (keys.containsKey(Controls.backKey) && (!Player.colliding || noclip) || (Player.colliding && lastMove == Controls.forwardKey)) {
                 tmp.set(camera.direction).nor().scl(-deltaTime * velocity);
                 camera.position.add(tmp);  
                 lastMove = Controls.backKey;
         }
-        if (keys.containsKey(Controls.strafeLeft) && (!Player.colliding || noclip || (lastMove != Controls.strafeLeft))) {
+        if (keys.containsKey(Controls.strafeLeft) && (!Player.colliding || noclip || (Player.colliding && lastMove == Controls.strafeRight))) {
 	                tmp.set(camera.direction).crs(camera.up).nor().scl(-deltaTime * velocity);
 	                camera.position.add(tmp);
 	                lastMove = Controls.strafeLeft;
         }
-        if (keys.containsKey(Controls.strafeRight) && (!Player.colliding || noclip || (lastMove != Controls.strafeRight))) {
+        if (keys.containsKey(Controls.strafeRight) && (!Player.colliding || noclip || (Player.colliding && lastMove == Controls.strafeLeft))) {
                 tmp.set(camera.direction).crs(camera.up).nor().scl(deltaTime * velocity);
                 camera.position.add(tmp);  
                 lastMove = Controls.strafeRight;
