@@ -3,6 +3,7 @@ package com.TEAM_NAME.Fructus;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.VertexAttributes;
@@ -12,6 +13,8 @@ import com.badlogic.gdx.graphics.g3d.Material;
 import com.badlogic.gdx.graphics.g3d.attributes.TextureAttribute;
 import com.badlogic.gdx.graphics.g3d.utils.ModelBuilder;
 import com.badlogic.gdx.graphics.profiling.GLProfiler;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.TEAM_NAME.Fructus.MainMenu;
 
 
 public class GameMain implements ApplicationListener{
@@ -20,53 +23,68 @@ public class GameMain implements ApplicationListener{
 	static int screenHeight = 600;
 	Renderer r;
 	Controls c;
-	FPSLogger log;
+	//FPSLogger log;
 	Player p;
 	BitmapFont font;
-    Plane floor;
+	//Plane floor;
 	Walls w;
-	MapChunk m;
-    ModelBuilder modelBuilder = new ModelBuilder();
 
-    @Override
-	public void create () {
-		m = new MapChunk();
-		m.makeMap();
+	//MapChunk m;
+	MainMenu k;
+	ModelBuilder modelBuilder = new ModelBuilder();
+
+	@Override
+	public void create() {
+		//m = new MapChunk();
+		//m.makeMap();
 
 		w = new Walls();
 		//Loads all of the all textures from a file
 		w.loadTextures();
 		//Populates the world with cubes representing the world
 		w.generateWorld();
-		
+
 		r = new Renderer();
-		log = new FPSLogger();
+
+		//log = new FPSLogger();
 		font = new BitmapFont();
-        batch = new SpriteBatch();
+		batch = new SpriteBatch();
+
 		r.create();
 
-        //I create a box of 1x1x1 in order to automagically calculate the bounding
-        //box used for collision detection
-        p = new Player(modelBuilder.createBox(1f,1f,1f,new Material(TextureAttribute.createDiffuse(Walls.greenAppleTexture)),
-                VertexAttributes.Usage.Position| VertexAttributes.Usage.Normal | VertexAttributes.Usage.TextureCoordinates));
-        p.setupCamera(Renderer.getPerspectiveCamera());
 
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
-		GLProfiler.enable();
+		//I create a box of 1x1x1 in order to automagically calculate the bounding
+		//box used for collision detection
+
+		p = new Player(modelBuilder.createBox(1f,1f,1f,new Material(TextureAttribute.createDiffuse(Walls.greenAppleTexture)),
+				VertexAttributes.Usage.Position| VertexAttributes.Usage.Normal | VertexAttributes.Usage.TextureCoordinates));
+		p.setupCamera(Renderer.getPerspectiveCamera());
+
+		//Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
+		//GLProfiler.enable();
+		k = new MainMenu();
+		k.show();
 	}
 
 	@Override
 	public void render () {
-	    //Renderer -> render
-		r.render();
+		//Renderer -> render
+		k.render(Gdx.graphics.getDeltaTime());
+		//r.render();
 		p.movePlayer();
-		    
-        batch.begin();
-            RendererUtil.renderDebug(font, batch);
-            GLProfiler.reset();
-        batch.end();
-    }
 
+		batch.begin();
+		RendererUtil.renderDebug(font, batch);
+		GLProfiler.reset();
+		batch.end();
+	}
+	public void hide() {
+		dispose();
+	}
+
+	public void show(){
+
+	}
 	@Override
 	public void resize(int width, int height) {
 		// TODO Auto-generated method stub	
@@ -84,6 +102,5 @@ public class GameMain implements ApplicationListener{
 
 	@Override
 	public void dispose() {
-		
-	}		
+	}
 }

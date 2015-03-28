@@ -62,3 +62,13 @@ build/
 
 ## OS Specific
 .DS_Store
+Docs and Resources/chart1.png
+Docs and Resources/Class Diagram.mdj
+*.docx
+Docs and Resources/Game_SequenceDiagram.mdj
+*.png
+Docs and Resources/screenshot.gif
+*.gif
+Docs and Resources/SRS.pdf
+*.mdj
+Docs and Resources/SRS.rtf
