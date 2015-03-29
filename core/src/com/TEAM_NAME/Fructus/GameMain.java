@@ -2,6 +2,7 @@ package com.TEAM_NAME.Fructus;
 
 
 import com.badlogic.gdx.ApplicationListener;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.FPSLogger;
@@ -17,7 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.TEAM_NAME.Fructus.MainMenu;
 
 
-public class GameMain implements ApplicationListener{
+public class GameMain extends Game {
 	SpriteBatch batch;
 	static int screenWidth = 800;
 	static int screenHeight = 600;
