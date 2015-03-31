@@ -22,7 +22,7 @@ import com.badlogic.gdx.utils.Array;
 public class Walls {
 	static Texture watermelonTexture;
 	static Texture redAppleTexture;
-	static Texture greenAppleTexture;
+	public static Texture greenAppleTexture;
 	static Texture raspberryTexture;
     static Texture groundTexture;
     static Texture abstractWallTexture;
@@ -37,13 +37,13 @@ public class Walls {
     private static Array<Plane> planes = new Array<Plane>();   
     
     public void loadTextures(){
-    	raspberryTexture = new Texture(Gdx.files.internal("game_textures/seamless/raspberry.png"));
-		watermelonTexture = new Texture(Gdx.files.internal("game_textures/seamless/watermelon.png"));
-		redAppleTexture = new Texture(Gdx.files.internal("game_textures/seamless/red_apple.png"));
-		greenAppleTexture = new Texture(Gdx.files.internal("badlogic.jpg"));
-        groundTexture = new Texture(Gdx.files.internal("game_textures/wood.png"));
-        abstractWallTexture = new Texture(Gdx.files.internal("abstractWall.png"));
-        planeTexture = new Texture(Gdx.files.internal("planeTexture.png"));
+    	raspberryTexture = new Texture(Gdx.files.internal("core/assets/game_textures/seamless/raspberry.png"));
+		watermelonTexture = new Texture(Gdx.files.internal("core/assets/game_textures/seamless/watermelon.png"));
+		redAppleTexture = new Texture(Gdx.files.internal("core/assets/game_textures/seamless/red_apple.png"));
+		greenAppleTexture = new Texture(Gdx.files.internal("core/assets/badlogic.jpg"));
+        groundTexture = new Texture(Gdx.files.internal("core/assets/game_textures/wood.png"));
+        abstractWallTexture = new Texture(Gdx.files.internal("core/assets/abstractWall.png"));
+        planeTexture = new Texture(Gdx.files.internal("core/assets/planeTexture.png"));
     }
     
     public static Array<GameObject> getWalls(){ return walls;}

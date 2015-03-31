@@ -22,6 +22,7 @@ public class GameMain extends Game {
 	SpriteBatch batch;
 	static int screenWidth = 800;
 	static int screenHeight = 600;
+	Game game;
 	Renderer r;
 	Controls c;
 	//FPSLogger log;
@@ -60,10 +61,12 @@ public class GameMain extends Game {
 		p = new Player(modelBuilder.createBox(1f,1f,1f,new Material(TextureAttribute.createDiffuse(Walls.greenAppleTexture)),
 				VertexAttributes.Usage.Position| VertexAttributes.Usage.Normal | VertexAttributes.Usage.TextureCoordinates));
 		p.setupCamera(Renderer.getPerspectiveCamera());
+		game = this;
 
 		//Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 		//GLProfiler.enable();
-		k = new MainMenu();
+		k = new MainMenu(game);
+		game.setScreen(k);
 		k.show();
 	}
 
@@ -78,6 +81,7 @@ public class GameMain extends Game {
 		RendererUtil.renderDebug(font, batch);
 		GLProfiler.reset();
 		batch.end();
+		super.render();
 	}
 	public void hide() {
 		dispose();

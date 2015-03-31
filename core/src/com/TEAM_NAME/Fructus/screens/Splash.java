@@ -1,5 +1,6 @@
-package com.TEAM_NAME.Fructus;
+package com.TEAM_NAME.Fructus.screens;
 
+import com.TEAM_NAME.Fructus.*;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.FPSLogger;
@@ -17,7 +18,9 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
  * Created by christensena on 3/29/2015.
  */
 public class Splash implements Screen{
-    private Stage stage = new Stage();
+    SpriteBatch batch;
+    static int screenWidth = 800;
+    static int screenHeight = 600;
     Renderer r;
     Controls c;
     FPSLogger log;
@@ -26,19 +29,10 @@ public class Splash implements Screen{
     Plane floor;
     Walls w;
     MapChunk m;
-    SpriteBatch batch;
     ModelBuilder modelBuilder = new ModelBuilder();
-    public Splash(){
 
-    }
-    public void render(float delta){
-        Gdx.gl.glClearColor(0,0,0,1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        stage.act();
-        stage.draw();
-    }
-
-    public void show() {
+    @Override
+    public void show () {
         m = new MapChunk();
         m.makeMap();
 
@@ -56,35 +50,47 @@ public class Splash implements Screen{
 
         //I create a box of 1x1x1 in order to automagically calculate the bounding
         //box used for collision detection
-        p = new Player(modelBuilder.createBox(1f, 1f, 1f, new Material(TextureAttribute.createDiffuse(Walls.greenAppleTexture)),
-                VertexAttributes.Usage.Position | VertexAttributes.Usage.Normal | VertexAttributes.Usage.TextureCoordinates));
+        p = new Player(modelBuilder.createBox(1f,1f,1f,new Material(TextureAttribute.createDiffuse(Walls.greenAppleTexture)),
+                VertexAttributes.Usage.Position| VertexAttributes.Usage.Normal | VertexAttributes.Usage.TextureCoordinates));
         p.setupCamera(Renderer.getPerspectiveCamera());
 
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
         GLProfiler.enable();
+    }
 
-        r.render();
+    public void render (float delta) {
+        //Renderer -> render
         p.movePlayer();
+        r.render();
 
         batch.begin();
         RendererUtil.renderDebug(font, batch);
         GLProfiler.reset();
         batch.end();
     }
-    public void resize(int width, int height){
 
+    @Override
+    public void resize(int width, int height) {
+        // TODO Auto-generated method stub
     }
-    public void hide(){
-        dispose();
-    }
-    public void pause(){
 
+    @Override
+    public void pause() {
+        // TODO Auto-generated method stub
     }
-    public void resume(){
 
+    @Override
+    public void resume() {
+        // TODO Auto-generated method stub
     }
+
+    @Override
     public void dispose() {
-        stage.dispose();
+
+    }
+    @Override
+    public void hide() {
+
     }
 
 }

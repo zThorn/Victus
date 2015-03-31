@@ -164,7 +164,8 @@ public class MapChunk {
 		{
 			
 			if(Math.random() < fillProb)
-			{	
+			{
+
 				return wall;
 			}
 			else
