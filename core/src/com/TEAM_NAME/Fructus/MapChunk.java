@@ -1,5 +1,7 @@
 package com.TEAM_NAME.Fructus;
 
+import java.util.Random;
+
 public class MapChunk {
 	//Size of map
 		public static final int mapWidth = 250;
@@ -15,7 +17,12 @@ public class MapChunk {
 		public final static int wall = 1;
 		//value of floor is 0
 		public final static int floor = 0;
-
+		//value of item/journal is 2
+		public final static int item = 2;
+		
+		//Number of Items to Generate
+		public final static int NumItems = 8;
+		
 		//probability to place a wall into grid
 		public static double fillProb = .40;
 
@@ -32,6 +39,8 @@ public class MapChunk {
 			{
 				generation();
 			}
+			//Creates items into map data
+			makeItems();
 		}
 		
 		//Initializes values in map
@@ -171,5 +180,52 @@ public class MapChunk {
 			{
 				return floor;
 			}
+		}
+		
+		//Item placer
+		public static void makeItems()
+		{
+			int MapXCoord;
+			int MapYCoord;
+			//0 means item is not placed, 1 means item is placed
+			int itemPlaced = 0;
+			
+			//Places items onto map
+			for(int i = 0; i < NumItems; i++)
+			{
+				while(itemPlaced == 0)
+				{
+					MapXCoord = randX();
+					MapYCoord = randY();
+					
+					//Checks if random place on map is a floor tile
+					if (map[MapXCoord][MapYCoord] == floor)
+					{
+						map[MapXCoord][MapYCoord] = item;
+						itemPlaced = 1;
+					}
+				}
+				//Resets the while loop for next iteration
+				itemPlaced = 0;
+			}
+			
+			//Checks item paths to see if all items are accessible
+			
+		}
+		
+		//Random Number Generator for X on array
+		public static int randX()
+		{
+			Random rand = new Random();
+			int randomNum = rand.nextInt(mapWidth + 1);
+			return randomNum;
+		}
+		
+		//Random Number Generator for Y on array
+		public static int randY()
+		{
+			Random rand = new Random();
+			int randomNum = rand.nextInt(mapHeight + 1);
+			return randomNum;
 		}
 }
