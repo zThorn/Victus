@@ -9,10 +9,9 @@ public class MapChunk {
 
 		//Map of stage
 		public static int[][] map = new int[mapWidth][mapHeight];
-
 		//Temp Map Array
 		public static int[][] tempMap = new int[mapWidth][mapHeight];
-
+		
 		//value of wall is 1
 		public final static int wall = 1;
 		//value of floor is 0
@@ -22,6 +21,9 @@ public class MapChunk {
 		
 		//Number of Items to Generate
 		public final static int NumItems = 8;
+		
+		//Item Coordinates (x,y)
+		public static int[][] itemCoord = new int[NumItems][2];
 		
 		//probability to place a wall into grid
 		public static double fillProb = .40;
@@ -191,7 +193,7 @@ public class MapChunk {
 		public static void makeItems()
 		{
 			//Indication of when map is generated with accessible items
-			boolean itemMade = false;
+			boolean itemMade = true;
 			while(itemMade)
 			{
 				//Places item randomly on map
@@ -199,7 +201,7 @@ public class MapChunk {
 				//If path checker passes break out of while loop, else delete item and reiterate while loop
 				if(pathCheck())
 				{
-					itemMade = true;
+					itemMade = false;
 				}
 				else
 				{
@@ -220,7 +222,7 @@ public class MapChunk {
 			//Places items onto map
 			for(int i = 0; i < NumItems; i++)
 			{
-				while(itemPlaced == 0)
+				while(itemPlaced != 1)
 				{
 					MapXCoord = randX();
 					MapYCoord = randY();
@@ -229,6 +231,9 @@ public class MapChunk {
 					if (map[MapXCoord][MapYCoord] == floor)
 					{
 						map[MapXCoord][MapYCoord] = item;
+						//Sets the item's coordinates into array
+						itemCoord[i][0] = MapXCoord;
+						itemCoord[i][1] = MapYCoord;
 						itemPlaced = 1;
 					}
 				}
@@ -240,6 +245,22 @@ public class MapChunk {
 		//Path Checker for items
 		public static boolean pathCheck()
 		{
+			AStarAlgorithm algo = new AStarAlgorithm();
+			for(int i = 0; i < (NumItems - 1); i++)
+			{
+				int xStart = itemCoord[i][0];
+				int yStart = itemCoord[i][1];
+				Vector2i start = new Vector2i(xStart, yStart);
+				
+				int xGoal = itemCoord[i + 1][0];
+				int yGoal = itemCoord[i + 1][1];
+				Vector2i goal = new Vector2i(xGoal, yGoal);
+				
+				if(algo.findPath(start, goal, map) == null)
+				{
+					return false;
+				}
+			}
 			return true;
 		}
 		
@@ -277,6 +298,5 @@ public class MapChunk {
 			int randomNum = rand.nextInt(mapHeight);
 			return randomNum;
 		}
-		
 		
 }
