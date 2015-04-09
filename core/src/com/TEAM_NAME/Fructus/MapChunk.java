@@ -188,8 +188,29 @@ public class MapChunk {
 			}
 		}
 		
-		//Item placer
 		public static void makeItems()
+		{
+			//Indication of when map is generated with accessible items
+			boolean itemMade = false;
+			while(itemMade)
+			{
+				//Places item randomly on map
+				placeItems();
+				//If path checker passes break out of while loop, else delete item and reiterate while loop
+				if(pathCheck())
+				{
+					itemMade = true;
+				}
+				else
+				{
+					//deletes item if path checker fails
+					delItems();
+				}
+			}
+		}
+		
+		//Item placer on map
+		public static void placeItems()
 		{
 			int MapXCoord;
 			int MapYCoord;
@@ -214,9 +235,31 @@ public class MapChunk {
 				//Resets the while loop for next iteration
 				itemPlaced = 0;
 			}
-			
-			//Checks item paths to see if all items are accessible
-			
+		}
+		
+		//Path Checker for items
+		public static boolean pathCheck()
+		{
+			return true;
+		}
+		
+		//Delete item if path check fail
+		public static void delItems()
+		{
+			//Scans through each row
+			for(int i = 0; i < mapWidth; i++)
+			{
+				//Scans through each column
+				for (int j = 0; j < mapHeight; j++) 
+				{
+					//checks and deletes items
+					if (map[j][i] == item)
+					{
+						//Sets item value back to floor value
+						map[j][i] = 0;
+					}
+				}
+			}
 		}
 		
 		//Random Number Generator for X on array
@@ -234,4 +277,6 @@ public class MapChunk {
 			int randomNum = rand.nextInt(mapHeight);
 			return randomNum;
 		}
+		
+		
 }
