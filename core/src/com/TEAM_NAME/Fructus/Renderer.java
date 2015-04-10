@@ -108,11 +108,11 @@ public class Renderer implements ApplicationListener {
         	modelBatch.render(pl,environment);
         	renderedobjects++;
         }
-        
+        hitJournal = false;
         for(GameObject j: Walls.getJournals()){
             modelBatch.render(j, environment);
             renderedobjects++;
-            hitJournal = false;
+            //wwwhitJournal = false;
             
         	if(j.getBoundingBox().intersects(Player.bounds)){
         		hitJournal = true;

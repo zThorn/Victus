@@ -28,19 +28,21 @@ public class GameMain implements ApplicationListener{
 	MapChunk m;
 	DialogItem d;
     ModelBuilder modelBuilder = new ModelBuilder();
+    boolean textShown = false;
 
     @Override
 	public void create () {
 		m = new MapChunk();
 		m.makeMap();
-
+		Story.loadStory();
 		w = new Walls();
 		//Loads all of the all textures from a file
 		w.loadTextures();
 		//Populates the world with cubes representing the world
 		r = new Renderer();
 		r.create();
-
+		d= new DialogItem();
+		d.create();
 		w.generateWorld();
 		
 		
@@ -61,16 +63,22 @@ public class GameMain implements ApplicationListener{
 	@Override
 	public void render () {
 	    //Renderer -> render
-		p.movePlayer();
-		r.render();
-		if(r.hitJournal == true){
-			d.show();
-		}
-		    
+
+			p.movePlayer();
+			r.render();
         batch.begin();
             RendererUtil.renderDebug(font, batch);
             GLProfiler.reset();
+            if(r.hitJournal == true){
+    			d.render(font);
+    			textShown = true;
+    		} else if(r.hitJournal == false && textShown == true){
+    			Story.currentStoryItem+=1;
+    			textShown = false;
+    			System.out.println(Story.currentStoryItem);
+    		}
         batch.end();
+		
     }
 
 	@Override

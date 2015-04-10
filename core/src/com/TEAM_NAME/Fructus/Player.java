@@ -1,6 +1,7 @@
 package com.TEAM_NAME.Fructus;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.PerspectiveCamera;
 import com.badlogic.gdx.graphics.g3d.Model;
@@ -17,6 +18,7 @@ public class Player extends GameObject {
     private FirstPersonCamera fpcc ;
     private DirectionalLight dirLight;
     private PointLight pLight;
+    public static InputMultiplexer inputMultiplexer;
     
     public static boolean colliding = false;
     public static BoundingBox bounds;
@@ -32,7 +34,9 @@ public class Player extends GameObject {
     public void setupCamera(PerspectiveCamera c){
         camera = c;
         fpcc = new FirstPersonCamera(camera);
-        Gdx.input.setInputProcessor(fpcc);
+        inputMultiplexer = new InputMultiplexer();
+        inputMultiplexer.addProcessor(fpcc);
+        Gdx.input.setInputProcessor(inputMultiplexer);
         Gdx.input.setCursorCatched(true);
         dirLight = new DirectionalLight();
         dirLight.set(new Color(.2f,.2f,.2f,.05f), camera.direction);
