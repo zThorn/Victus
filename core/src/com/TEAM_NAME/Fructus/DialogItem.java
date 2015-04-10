@@ -13,7 +13,7 @@ public class DialogItem extends ScreenAdapter{
 	private Skin skin;
 	public void show() {
 		Gdx.input.setInputProcessor(stage = new Stage());
-		skin = new Skin(Gdx.files.internal());
+		skin = new Skin(Gdx.files.internal("game_textures/skins"));
 
 		ItemDialog dia = new ItemDialog("Journal Entry Discovered!", skin);
 		dia.show(stage);
