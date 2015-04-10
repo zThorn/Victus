@@ -37,13 +37,15 @@ public class GameMain implements ApplicationListener{
 		//Loads all of the all textures from a file
 		w.loadTextures();
 		//Populates the world with cubes representing the world
+		r = new Renderer();
+		r.create();
+
 		w.generateWorld();
 		
-		r = new Renderer();
+		
 		log = new FPSLogger();
 		font = new BitmapFont();
         batch = new SpriteBatch();
-		r.create();
 
         //I create a box of 1x1x1 in order to automagically calculate the bounding
         //box used for collision detection

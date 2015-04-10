@@ -36,9 +36,9 @@ public class Player extends GameObject {
         Gdx.input.setInputProcessor(fpcc);
         Gdx.input.setCursorCatched(true);
         dirLight = new DirectionalLight();
-        dirLight.set(new Color(.8f,.8f,.8f,1), camera.direction);
+        dirLight.set(new Color(.2f,.2f,.2f,.05f), camera.direction);
         pLight = new PointLight();
-        pLight.set(new Color(.1f,.1f,.1f,1),camera.position,80f);
+        pLight.set(new Color(.1f,.1f,.1f,1),camera.position,30f);
         
         Renderer.environment.add(pLight);
         Renderer.environment.add(dirLight);
@@ -48,7 +48,7 @@ public class Player extends GameObject {
         fpcc.update();
         pLight.position.set(camera.position);
         dirLight.direction.set(camera.direction.x,camera.direction.y+.45f,camera.direction.z);
-        bounds.set(new Vector3(camera.position.x-.55f,-1,camera.position.z-.55f),new Vector3(camera.position.x+.55f,1,camera.position.z+.55f));
+        bounds.set(new Vector3(camera.position.x-.25f,-1,camera.position.z-.35f),new Vector3(camera.position.x+.25f,1,camera.position.z+.25f));
 
     }
 

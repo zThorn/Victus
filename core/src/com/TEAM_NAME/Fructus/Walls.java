@@ -3,6 +3,7 @@ package com.TEAM_NAME.Fructus;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.ModelLoader;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureWrap;
@@ -11,6 +12,7 @@ import com.badlogic.gdx.graphics.g3d.Material;
 import com.badlogic.gdx.graphics.g3d.Model;
 import com.badlogic.gdx.graphics.g3d.ModelBatch;
 import com.badlogic.gdx.graphics.g3d.attributes.TextureAttribute;
+import com.badlogic.gdx.graphics.g3d.environment.PointLight;
 import com.badlogic.gdx.graphics.g3d.loader.G3dModelLoader;
 import com.badlogic.gdx.graphics.g3d.loader.ObjLoader;
 import com.badlogic.gdx.graphics.g3d.utils.MeshPartBuilder;
@@ -39,7 +41,8 @@ public class Walls {
 	GameObject instance;
 
     private static Array<GameObject> walls = new Array<GameObject>();
-    private static Array<Plane> planes = new Array<Plane>();   
+    private static Array<Plane> planes = new Array<Plane>(); 
+    private static Array<GameObject> journals = new Array<GameObject>();
     
     public void loadTextures(){
     	raspberryTexture = new Texture(Gdx.files.internal("game_textures/seamless/raspberry.png"));
@@ -53,10 +56,13 @@ public class Walls {
     
     public static Array<GameObject> getWalls(){ return walls;}
     public static Array<Plane> getPlanes(){ return planes; }
+    public static Array<GameObject> getJournals(){ return journals; }
+
 
     public void generateWorld(){
     	 ModelBuilder modelBuilder = new ModelBuilder();
     	 ModelLoader loader = new G3dModelLoader(new JsonReader());
+    	 float boxScaleFactor = 1f;
 
     	 Plane temp;
     	 Walls.planeTexture.setWrap(TextureWrap.Repeat, TextureWrap.Repeat);
@@ -68,7 +74,7 @@ public class Walls {
     	 mpb.box(500, 1, 500);
     	 model = modelBuilder.end();
     	 temp = new Plane(model);
-    	 temp.transform.setTranslation(new Vector3(0,-1.75f,0));
+    	 temp.transform.setTranslation(new Vector3(0,-1f,0));
     	 planes.add(temp);
 
     	 
@@ -87,25 +93,25 @@ public class Walls {
     		for(int x=MapChunk.mapWidth-1; x > 0 ; x--){
                 switch(MapChunk.map[x][y]){
 	    			case 1:
-	    				model = modelBuilder.createBox(2f, 2f, 2f, new Material(TextureAttribute.createDiffuse(Walls.abstractWallTexture)),
+	    				model = modelBuilder.createBox(1f, 1f, 1f, new Material(TextureAttribute.createDiffuse(Walls.abstractWallTexture)),
 	    		  				Usage.Position| Usage.Normal | Usage.TextureCoordinates);
 	    		         instance = new GameObject(model);
-	    		         instance.transform.setTranslation(new Vector3(x*2,0,y*2));
+	    		         instance.transform.setTranslation(new Vector3(x,0,y));
 	    		         instance.calculateTransforms();
-	    		         instance.getBoundingBox().set(instance.getBoundingBox().min.add(x*2,0,y*2),instance.getBoundingBox().max.add(x*2,0,y*2));
+	    		         instance.getBoundingBox().set(instance.getBoundingBox().min.add(x*boxScaleFactor,0,y*boxScaleFactor),instance.getBoundingBox().max.add(x*boxScaleFactor,0,y*boxScaleFactor));
                          walls.add(instance);
 	    				break;
 	    			case 2:
 	    				 model = loader.loadModel(Gdx.files.internal("convert.g3dj"));
 	    		         instance = new GameObject(model);
-	    		         instance.transform.setTranslation(new Vector3(x,0f,y));
+	    		         instance.transform.setTranslation(new Vector3(x,-.35f,y));
 	    		         System.out.println(x+" : "+y);
 	    		         instance.calculateTransforms();
-	    		         instance.getBoundingBox().set(instance.getBoundingBox().min.add(-1,0,-1),instance.getBoundingBox().max.add(1,0,1));
-	    		         walls.add(instance);
+	    		         
+	    		         instance.getBoundingBox().set(instance.getBoundingBox().min.add(x,-1,y),instance.getBoundingBox().max.add(x,1,y));
+	    		         journals.add(instance);
 
                         break;
-                    case 0:
 	    			default:
                 }
             }

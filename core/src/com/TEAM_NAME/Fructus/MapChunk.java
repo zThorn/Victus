@@ -4,8 +4,8 @@ import java.util.Random;
 
 public class MapChunk {
 	//Size of map
-		public static final int mapWidth = 250;
-		public static final int mapHeight = 250;
+		public static final int mapWidth = 200;
+		public static final int mapHeight = 200;
 
 		//Map of stage
 		public static int[][] map = new int[mapWidth][mapHeight];
@@ -35,12 +35,18 @@ public class MapChunk {
 		{
 			initMap();
 			//Calls Generation many times to make map more cavern like
-			for(int i = 0; i < 30; i++)
+			for(int i = 0; i < 5; i++)
 			{
 				generation();
 			}
 			//Creates items into map data
 			makeItems();
+			for(int x=0;x<mapWidth;x++){
+				for(int y=0;y<mapWidth;y++){
+					System.out.print(map[y][x]);
+				}
+				System.out.println();
+			}
 		}
 		
 		//Initializes values in map
@@ -217,7 +223,7 @@ public class MapChunk {
 		public static int randX()
 		{
 			Random rand = new Random();
-			int randomNum = rand.nextInt(mapWidth + 1);
+			int randomNum = rand.nextInt(mapWidth);
 			return randomNum;
 		}
 		
@@ -225,7 +231,7 @@ public class MapChunk {
 		public static int randY()
 		{
 			Random rand = new Random();
-			int randomNum = rand.nextInt(mapHeight + 1);
+			int randomNum = rand.nextInt(mapHeight);
 			return randomNum;
 		}
 }
