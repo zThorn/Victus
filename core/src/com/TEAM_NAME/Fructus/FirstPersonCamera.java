@@ -69,23 +69,23 @@ public class FirstPersonCamera  extends InputAdapter {
 
     public void update (float deltaTime) {
         tmp.set(Vector3.Zero);
-        if (keys.containsKey(Controls.forwardKey) && (!Player.colliding || noclip) || (Player.colliding && lastMove == Controls.backKey)) {
+        if (keys.containsKey(Controls.forwardKey) && (!Player.colliding || noclip)) {
                 tmp.set(camera.direction).nor().scl(deltaTime * velocity);
                 camera.position.add(tmp);
                 lastMove = Controls.forwardKey;
         }
         
-        if (keys.containsKey(Controls.backKey) && (!Player.colliding || noclip) || (Player.colliding && lastMove == Controls.forwardKey)) {
+        if (keys.containsKey(Controls.backKey) && (!Player.colliding || noclip)) {
                 tmp.set(camera.direction).nor().scl(-deltaTime * velocity);
                 camera.position.add(tmp);  
                 lastMove = Controls.backKey;
         }
-        if (keys.containsKey(Controls.strafeLeft) && (!Player.colliding || noclip || (Player.colliding && lastMove == Controls.strafeRight))) {
+        if (keys.containsKey(Controls.strafeLeft) && (!Player.colliding || noclip)) {
 	                tmp.set(camera.direction).crs(camera.up).nor().scl(-deltaTime * velocity);
 	                camera.position.add(tmp);
 	                lastMove = Controls.strafeLeft;
         }
-        if (keys.containsKey(Controls.strafeRight) && (!Player.colliding || noclip || (Player.colliding && lastMove == Controls.strafeLeft))) {
+        if (keys.containsKey(Controls.strafeRight) && (!Player.colliding || noclip)) {
                 tmp.set(camera.direction).crs(camera.up).nor().scl(deltaTime * velocity);
                 camera.position.add(tmp);  
                 lastMove = Controls.strafeRight;
@@ -103,7 +103,7 @@ public class FirstPersonCamera  extends InputAdapter {
         
         Player.colliding = false;
         //This makes sure that the camera stays locked to a single plane
-        camera.position.y = 0;
+        camera.position.y = .1f;
         camera.update(true);
 
         }

@@ -27,27 +27,31 @@ public class GameMain implements ApplicationListener{
     Plane floor;
 	Walls w;
 	MapChunk m;
+	DialogItem d;
     ModelBuilder modelBuilder = new ModelBuilder();
     Music music;
-
+    boolean textShown = false;
 
     @Override
 	public void create () {
     	music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Travel.wav"));
 		m = new MapChunk();
 		m.makeMap();
-
+		Story.loadStory();
 		w = new Walls();
 		//Loads all of the all textures from a file
 		w.loadTextures();
 		//Populates the world with cubes representing the world
+		r = new Renderer();
+		r.create();
+		d= new DialogItem();
+		d.create();
 		w.generateWorld();
 		
-		r = new Renderer();
+		
 		log = new FPSLogger();
 		font = new BitmapFont();
         batch = new SpriteBatch();
-		r.create();
 
         //I create a box of 1x1x1 in order to automagically calculate the bounding
         //box used for collision detection
@@ -68,9 +72,21 @@ public class GameMain implements ApplicationListener{
 		p.movePlayer();
 		r.render();
 		    
+	    //Renderer -> render
+
+			p.movePlayer();
+			r.render();
         batch.begin();
             RendererUtil.renderDebug(font, batch);
             GLProfiler.reset();
+            if(r.hitJournal == true){
+    			d.render(font);
+    			textShown = true;
+    		} else if(r.hitJournal == false && textShown == true){
+    			Story.currentStoryItem+=1;
+    			textShown = false;
+    			System.out.println(Story.currentStoryItem);
+    		}
         batch.end();
         if(!music.isPlaying()){
         	music.play();

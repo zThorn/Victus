@@ -1,21 +1,30 @@
 package com.TEAM_NAME.Fructus;
 
+import java.util.Random;
+
 public class MapChunk {
 	//Size of map
-		public static final int mapWidth = 250;
-		public static final int mapHeight = 250;
+		public static final int mapWidth = 200;
+		public static final int mapHeight = 200;
 
 		//Map of stage
 		public static int[][] map = new int[mapWidth][mapHeight];
-
 		//Temp Map Array
 		public static int[][] tempMap = new int[mapWidth][mapHeight];
-
+		
 		//value of wall is 1
 		public final static int wall = 1;
 		//value of floor is 0
 		public final static int floor = 0;
-
+		//value of item/journal is 2
+		public final static int item = 2;
+		
+		//Number of Items to Generate
+		public final static int NumItems = 8;
+		
+		//Item Coordinates (x,y)
+		public static int[][] itemCoord = new int[NumItems][2];
+		
 		//probability to place a wall into grid
 		public static double fillProb = .40;
 
@@ -28,9 +37,17 @@ public class MapChunk {
 		{
 			initMap();
 			//Calls Generation many times to make map more cavern like
-			for(int i = 0; i < 30; i++)
+			for(int i = 0; i < 5; i++)
 			{
 				generation();
+			}
+			//Creates items into map data
+			makeItems();
+			for(int x=0;x<mapWidth;x++){
+				for(int y=0;y<mapWidth;y++){
+					System.out.print(map[y][x]);
+				}
+				System.out.println();
 			}
 		}
 		
@@ -172,4 +189,114 @@ public class MapChunk {
 				return floor;
 			}
 		}
+		
+		public static void makeItems()
+		{
+			//Indication of when map is generated with accessible items
+			boolean itemMade = true;
+			while(itemMade)
+			{
+				//Places item randomly on map
+				placeItems();
+				//If path checker passes break out of while loop, else delete item and reiterate while loop
+				if(pathCheck())
+				{
+					itemMade = false;
+				}
+				else
+				{
+					//deletes item if path checker fails
+					delItems();
+				}
+			}
+		}
+		
+		//Item placer on map
+		public static void placeItems()
+		{
+			int MapXCoord;
+			int MapYCoord;
+			//0 means item is not placed, 1 means item is placed
+			int itemPlaced = 0;
+			
+			//Places items onto map
+			for(int i = 0; i < NumItems; i++)
+			{
+				while(itemPlaced != 1)
+				{
+					MapXCoord = randX();
+					MapYCoord = randY();
+					
+					//Checks if random place on map is a floor tile
+					if (map[MapXCoord][MapYCoord] == floor)
+					{
+						map[MapXCoord][MapYCoord] = item;
+						//Sets the item's coordinates into array
+						itemCoord[i][0] = MapXCoord;
+						itemCoord[i][1] = MapYCoord;
+						itemPlaced = 1;
+					}
+				}
+				//Resets the while loop for next iteration
+				itemPlaced = 0;
+			}
+		}
+		
+		//Path Checker for items
+		public static boolean pathCheck()
+		{
+			AStarAlgorithm algo = new AStarAlgorithm();
+			for(int i = 0; i < (NumItems - 1); i++)
+			{
+				int xStart = itemCoord[i][0];
+				int yStart = itemCoord[i][1];
+				Vector2i start = new Vector2i(xStart, yStart);
+				
+				int xGoal = itemCoord[i + 1][0];
+				int yGoal = itemCoord[i + 1][1];
+				Vector2i goal = new Vector2i(xGoal, yGoal);
+				
+				if(algo.findPath(start, goal, map) == null)
+				{
+					return false;
+				}
+			}
+			return true;
+		}
+		
+		//Delete item if path check fail
+		public static void delItems()
+		{
+			//Scans through each row
+			for(int i = 0; i < mapWidth; i++)
+			{
+				//Scans through each column
+				for (int j = 0; j < mapHeight; j++) 
+				{
+					//checks and deletes items
+					if (map[j][i] == item)
+					{
+						//Sets item value back to floor value
+						map[j][i] = 0;
+					}
+				}
+			}
+		}
+		
+		//Random Number Generator for X on array
+		public static int randX()
+		{
+			Random rand = new Random();
+			int randomNum = rand.nextInt(mapWidth);
+			return randomNum;
+		}
+		
+		//Random Number Generator for Y on array
+		public static int randY()
+		{
+			Random rand = new Random();
+			int randomNum = rand.nextInt(mapHeight);
+			return randomNum;
+		}
+		
 }
