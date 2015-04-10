@@ -3,6 +3,7 @@ package com.TEAM_NAME.Fructus;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.VertexAttributes;
@@ -27,9 +28,12 @@ public class GameMain implements ApplicationListener{
 	Walls w;
 	MapChunk m;
     ModelBuilder modelBuilder = new ModelBuilder();
+    Music music;
+
 
     @Override
 	public void create () {
+    	music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Travel.wav"));
 		m = new MapChunk();
 		m.makeMap();
 
@@ -53,11 +57,14 @@ public class GameMain implements ApplicationListener{
 
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 		GLProfiler.enable();
+		music.play();
 	}
 
 	@Override
 	public void render () {
-	    //Renderer -> render
+	    //Renderer -> render    
+		
+		
 		p.movePlayer();
 		r.render();
 		    
@@ -65,6 +72,9 @@ public class GameMain implements ApplicationListener{
             RendererUtil.renderDebug(font, batch);
             GLProfiler.reset();
         batch.end();
+        if(!music.isPlaying()){
+        	music.play();
+        }
     }
 
 	@Override
@@ -84,6 +94,6 @@ public class GameMain implements ApplicationListener{
 
 	@Override
 	public void dispose() {
-		
+		music.dispose();
 	}		
 }
