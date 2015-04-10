@@ -26,6 +26,7 @@ public class GameMain implements ApplicationListener{
     Plane floor;
 	Walls w;
 	MapChunk m;
+	DialogItem d;
     ModelBuilder modelBuilder = new ModelBuilder();
 
     @Override
@@ -62,6 +63,9 @@ public class GameMain implements ApplicationListener{
 	    //Renderer -> render
 		p.movePlayer();
 		r.render();
+		if(r.hitJournal == true){
+			d.show();
+		}
 		    
         batch.begin();
             RendererUtil.renderDebug(font, batch);
